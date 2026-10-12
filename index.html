@@ -261,7 +261,7 @@ h1, h2, h3, p { margin: 0; }
 
 /* Roster: a night-match poster. Floodlights, glowing white type tilted in perspective, the No. 14 shirt in the middle */
 .roster { position: relative; overflow: hidden; isolation: isolate; min-height: max(640px, 92vh); display: flex; align-items: center; padding-block: clamp(90px, 10vw, 140px); background: #07020F; }
-.roster-bg { position: absolute; inset: -4%; z-index: -3; background: url(img/g11-huddle.webp) center 40% / cover; filter: grayscale(1) brightness(.32) blur(3px); }
+.roster-bg { position: absolute; inset: -4%; z-index: -3; background: url(img/vo-team.webp) center 45% / cover; filter: grayscale(1) brightness(.32) blur(3px); }
 .roster::before { content: ""; position: absolute; inset: 0; z-index: -2; background:
   radial-gradient(34% 30% at 6% 14%, rgba(236, 224, 255, .55), transparent 62%),
   radial-gradient(26% 26% at 44% 4%, rgba(var(--accent-hi-rgb), .45), transparent 66%),
@@ -525,6 +525,7 @@ const SEASONS = [
 ];
 /* Team photos for the sideways reel */
 const SQUAD = [
+  { src: "img/vo-team.webp", tag: "VinOlympic", cap: "Vinschool Strikers team photo · VinOlympic" },
   { src: "img/g11-coach.webp", tag: "25–26", cap: "Team with the coach" },
   { src: "img/sf-pitch.webp", tag: "SF 25", cap: "Celebrating on the pitch · SportsFest 2025" },
   { src: "img/g09-trophies.webp", tag: "23–24", cap: "Three-title season · trophies and pennants" },
