@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nguyen Duc Toan · #7 Football</title>
+<meta name="description" content="Sport portfolio of Nguyen Duc Toan (Vinschool Central Park, Ho Chi Minh City): seven football titles across four school seasons, season by season, with match and team photos.">
+<meta name="theme-color" content="#050308">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nguyen Duc Toan · #7 Football">
+<meta property="og:description" content="Seven football titles across four school seasons: Vinschool Central Park Championship, Vin10, VinOlympic and SportsFest 2025.">
+<meta property="og:image" content="https://ryannz0310.github.io/toan-football/img/og.jpg">
+<meta property="og:url" content="https://ryannz0310.github.io/toan-football/">
+<link rel="canonical" href="https://ryannz0310.github.io/toan-football/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23050308'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Arial Black,Arial' font-weight='900' font-style='italic' font-size='42' fill='%23B47CFF'%3E7%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Kaushan+Script&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&display=swap">
+<style>
+/* Layout: a team-poster page in black and vibranium purple. A Wakandan triangle lattice, a purple flare
+   and a comet streak sit behind Toan's cut-out, which breaks out of the top of its framed panel in front of a
+   brushed giant 7. Heavy italic type throughout, a serif for years. Below, sections alternate left and
+   right: season chapters zig-zag, the squad runs sideways, then trophies and the match-day wall. */
+:root {
+  /* Panther: black with vibranium purple */
+  --black: #050308; --black-rgb: 5, 3, 8;
+  --bg-900: #0D0816; --bg-800: #100820; --bg-700: #221338;
+  --accent: #7C3AED; --accent-rgb: 124, 58, 237;            /* fills: bars, buttons */
+  --accent-hi: #B47CFF; --accent-hi-rgb: 180, 124, 255;     /* highlights: labels, outlines, icons */
+  --ice: #EADCFF; --ice-rgb: 234, 220, 255;
+  --white: #F6F2FC; --mute: #9C90B3;
+  --line-rgb: 190, 160, 240; --rim-rgb: 205, 165, 255;
+  --bg-glow: #27093F;
+  --card-1: #1D0F33; --card-2: #0B0614;
+  --panel-a: #100820; --panel-b: #050308;
+  --frame-bg: #1A0D2E;
+  --flare: rgba(124, 58, 237, .45);
+  --streak: #D9C2FF;
+  --disc-a: #B47CFF; --disc-b: #6D28D9;
+  --num-fill: #EDE6F7; --num-filter: url(#grunge);
+  /* Wakandan-style triangle lattice laid over the patterned panels */
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='48'%3E%3Cpath d='M0 48L28 0l28 48zM14 24h28L28 48z' fill='none' stroke='%23B47CFF' stroke-opacity='.08'/%3E%3C/svg%3E");
+  --line: rgba(var(--line-rgb), .18);
+  --f-display: "Montserrat", "Arial Black", sans-serif;
+  --f-body: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --f-serif: "DM Serif Display", Georgia, serif;
+  --f-script: "Kaushan Script", "Brush Script MT", cursive;
+  --gutter: clamp(18px, 4.5vw, 64px);
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { background: var(--black); scroll-behavior: smooth; }
+html, body { overflow-x: clip; }
+body { margin: 0; background: var(--black); color: var(--white); font: 500 16px/1.65 var(--f-body); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 3px; }
+::selection { background: var(--accent-hi); color: #fff; }
+.wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: var(--gutter); }
+.label { display: inline-flex; align-items: center; gap: 10px; font: 800 12px/1 var(--f-body); letter-spacing: .18em; text-transform: uppercase; color: var(--accent-hi); }
+.label::before { content: ""; width: 26px; height: 3px; background: currentColor; transform: skewX(-20deg); }
+.stripes { background:
+  var(--pattern),
+  radial-gradient(120% 90% at 70% 10%, var(--bg-glow) 0%, transparent 55%),
+  linear-gradient(180deg, var(--panel-a), var(--panel-b)); }
+
+/* ---------- Loader: kick-off ---------- */
+.loader { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--black); pointer-events: none; }
+.loader b { font: italic 900 clamp(140px, 30vw, 360px)/.8 var(--f-display); color: var(--accent-hi); }
+.loader span { position: absolute; bottom: 12%; font: 800 12px/1 var(--f-body); letter-spacing: .4em; color: var(--mute); }
+
+/* ---------- Top bar ---------- */
+.top { position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding: calc(14px + env(safe-area-inset-top, 0px)) var(--gutter) 14px; display: flex; align-items: center; gap: 20px; transition: background-color .4s, backdrop-filter .4s; }
+.top.solid { background: rgba(var(--black-rgb), .82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+.brand b { font: italic 900 22px/1 var(--f-display); color: var(--white); }
+.brand b i { color: var(--accent-hi); font-style: inherit; }
+.brand span { font: italic 400 15px/1 var(--f-serif); color: var(--ice); }
+.top nav { margin-left: auto; display: flex; gap: 22px; }
+.top nav a { position: relative; font: 700 12px/1 var(--f-body); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; color: var(--ice); opacity: .85; }
+.top nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--accent-hi); transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+.top nav a:hover { opacity: 1; }
+.top nav a:hover::after { transform: scaleX(1); }
+@media (max-width: 960px) { .top nav { display: none; } }
+
+/* ---------- Hero: the poster ---------- */
+.hero { position: relative; min-height: max(660px, 100svh); overflow: hidden; display: flex; align-items: center; }
+.hero .stripes-layer { position: absolute; inset: 0; }
+.hero-flare { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(55% 65% at 100% 0%, var(--flare), transparent 70%); }
+.hero-streak { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; pointer-events: none; filter: drop-shadow(0 0 14px var(--streak)); }
+.hero-streak polygon { fill: var(--streak); }
+/* The player figure carries its own frame (back) and brushed number (middle), sized in container units */
+.hero-player { position: absolute; z-index: 4; right: clamp(60px, 7vw, 140px); bottom: 0; height: 88%; aspect-ratio: 902 / 1361; margin: 0; pointer-events: none; isolation: isolate; container-type: size; }
+.hero-player img { position: relative; z-index: 2; width: 100%; height: 100%; filter: drop-shadow(-2px -2px 0 rgba(var(--rim-rgb), .5)) drop-shadow(0 30px 50px rgba(0, 0, 0, .6)); }
+.hero-frame { position: absolute; z-index: 0; left: -16%; right: -6%; top: 36%; bottom: 0; background: var(--pattern), var(--frame-bg); box-shadow: 0 30px 80px rgba(0, 0, 0, .45), inset 0 0 0 1px rgba(255, 255, 255, .08); }
+.hero-frame::after { content: "07"; position: absolute; right: 4%; bottom: 2%; font: italic 900 22cqh/1 var(--f-display); color: rgba(255, 255, 255, .06); }
+.hero-num { position: absolute; z-index: 1; right: 44%; top: 1%; margin: 0; user-select: none; }
+.hero-num span { display: block; font: italic 900 80vh/.8 var(--f-display); font-size: 90cqh; color: var(--num-fill); filter: var(--num-filter); }
+.hero-vcp { position: absolute; z-index: 3; right: 0; top: 0; bottom: 0; width: clamp(70px, 8vw, 150px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; pointer-events: none; }
+.hero-vcp b { writing-mode: vertical-rl; transform: rotate(180deg); font: 900 clamp(90px, 13vh, 150px)/.8 var(--f-display); color: var(--white); letter-spacing: -.02em; }
+.hero-vcp span { writing-mode: vertical-rl; transform: rotate(180deg); font: 400 clamp(18px, 2.4vh, 26px)/1 var(--f-serif); color: var(--white); }
+.hero-inner { position: relative; z-index: 6; width: 100%; min-height: inherit; display: flex; align-items: center; padding-top: 90px; }
+.hero-copy { max-width: 680px; padding-bottom: 40px; }
+.kicker { font: italic 400 20px/1.2 var(--f-serif); color: var(--ice); margin-bottom: 16px; }
+.bar { display: inline-flex; align-items: center; gap: 12px; background: var(--white); color: var(--black); padding: 10px 22px 10px 16px; font: italic 900 clamp(13px, 1.2vw, 16px)/1 var(--f-display); letter-spacing: .04em; text-transform: uppercase;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%); }
+.bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-hi); box-shadow: 0 0 0 4px rgba(var(--accent-hi-rgb), .3); }
+.name { margin-top: 14px; font: italic 900 clamp(44px, 7vw, 112px)/.95 var(--f-display); letter-spacing: -.01em; text-transform: uppercase; text-shadow: 0 8px 30px rgba(0, 0, 0, .35); }
+.name .line { display: block; overflow: hidden; padding-right: .12em; }
+.name .line > span { display: inline-block; }
+.name .line:last-child > span { color: var(--accent-hi); }
+.hero-quote { margin: 22px 0 0; max-width: 34ch; transform: rotate(-4deg); transform-origin: left center; }
+.hero-quote p { font: 400 clamp(20px, 1.9vw, 30px)/1.25 var(--f-script); color: #F1E6FF; text-shadow: 0 0 6px rgba(255, 255, 255, .35), 0 0 22px rgba(var(--accent-hi-rgb), .75); }
+.hero-quote cite { display: block; margin-top: 8px; padding-left: 2.2em; font: italic 400 17px/1 var(--f-serif); color: var(--accent-hi); }
+.hero-sub { margin-top: 22px; max-width: 44ch; color: var(--ice); font-size: clamp(15px, 1.2vw, 17px); }
+.hero-cta { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { position: relative; display: inline-flex; align-items: center; gap: 12px; padding: 15px 24px; font: italic 900 13px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; color: #fff; background: var(--accent-hi); border: 0; cursor: pointer; overflow: hidden; isolation: isolate; transform: skewX(-8deg); }
+.btn > * { transform: skewX(8deg); }
+.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--accent); transform: translateX(-101%); transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
+.btn:hover::before { transform: none; }
+.btn.ghost { background: rgba(var(--black-rgb), .35); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .7); }
+.btn.ghost::before { background: rgba(255, 255, 255, .16); }
+.btn svg { width: 16px; height: 16px; }
+.hero-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 120px; z-index: 5; background: linear-gradient(180deg, transparent, rgba(var(--black-rgb), .85)); pointer-events: none; }
+.scroll-hint { position: absolute; z-index: 7; left: var(--gutter); bottom: 28px; display: flex; align-items: center; gap: 12px; font: 800 11px/1 var(--f-body); letter-spacing: .3em; color: var(--ice); }
+.scroll-hint i { width: 2px; height: 46px; background: linear-gradient(var(--accent-hi), transparent); animation: hint 1.8s ease-in-out infinite; transform-origin: top; }
+@keyframes hint { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+@media (max-height: 780px) and (min-width: 901px) { .hero-sub { display: none; } }
+@media (max-width: 900px) {
+  .hero { align-items: flex-end; }
+  .hero-quote { margin-top: 14px; max-width: 22ch; }
+  .hero-quote p { font-size: 19px; }
+  .hero-quote cite { font-size: 14px; }
+  .hero-vcp { display: none; }
+  .hero-player { height: 64%; right: -4%; bottom: auto; top: 64px; }
+  .hero-inner { align-items: flex-end; padding-top: 0; padding-bottom: 64px; }
+  .hero-copy { padding-bottom: 0; }
+  .hero-fade { height: 55%; background: linear-gradient(180deg, transparent, rgba(var(--black-rgb), .85) 45%, var(--black)); }
+  .hero .kicker, .hero-sub, .scroll-hint, .bar-nums { display: none; }
+  .hero-cta { margin-top: 20px; }
+  .hero .btn { padding: 13px 18px; }
+}
+
+/* ---------- Ticker ---------- */
+.ticker { position: relative; z-index: 8; background: var(--accent); color: #fff; transform: rotate(-1.6deg); margin: -10px -2% 0; padding: 14px 0; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, .4); }
+.ticker-track { display: flex; width: max-content; animation: ticker 38s linear infinite; }
+.ticker span { display: inline-flex; align-items: center; gap: 22px; padding-right: 22px; font: italic 900 clamp(16px, 1.8vw, 24px)/1 var(--f-display); text-transform: uppercase; white-space: nowrap; }
+.ticker span::after { content: ""; width: 10px; height: 10px; transform: rotate(45deg); background: #fff; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* ---------- Sections ---------- */
+.sec { position: relative; padding-block: clamp(90px, 11vw, 160px); }
+.sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(40px, 5vw, 72px); }
+.sec-head.flip { flex-direction: row-reverse; text-align: right; }
+.sec-title { font: italic 900 clamp(40px, 6.4vw, 96px)/.95 var(--f-display); text-transform: uppercase; letter-spacing: -.01em; }
+.sec-title em { font-style: inherit; padding-right: .08em; color: var(--accent-hi); background: linear-gradient(100deg, #D2B0FF, var(--accent-hi) 45%, var(--accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.sec-note { max-width: 40ch; color: var(--mute); }
+@media (max-width: 760px) { .sec-head.flip { flex-direction: column; align-items: flex-end; } }
+
+/* Scoreboard */
+.board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.cell { position: relative; padding: clamp(28px, 3.5vw, 48px) clamp(16px, 2vw, 28px); border-left: 1px solid var(--line); overflow: hidden; }
+.cell:first-child { border-left: 0; }
+.cell::before { content: ""; position: absolute; left: 0; top: 0; height: 4px; width: 100%; background: var(--accent-hi); transform: scaleX(0); transform-origin: left; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+.cell:hover::before { transform: scaleX(1); }
+.cell b { display: block; font: italic 900 clamp(56px, 7vw, 104px)/.9 var(--f-display); font-variant-numeric: tabular-nums; }
+.cell.nums b { font-size: clamp(48px, 6vw, 92px); white-space: nowrap; }
+.cell.nums b i { font-style: inherit; color: var(--accent-hi); margin: 0 .06em; }
+.cell > span { display: block; margin-top: 12px; font: 700 12px/1.4 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+@media (max-width: 760px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cell:nth-child(3) { border-left: 0; } .cell:nth-child(n+3) { border-top: 1px solid var(--line); } }
+
+/* Full-bleed photo band */
+.band { position: relative; height: clamp(420px, 78vh, 760px); overflow: hidden; display: grid; align-items: end; }
+.band img { position: absolute; inset: -12% 0; width: 100%; height: 124%; object-fit: cover; object-position: 50% 45%; }
+.band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, var(--black) 0%, rgba(var(--black-rgb), .15) 28%, rgba(var(--black-rgb), .2) 55%, var(--black) 100%), linear-gradient(90deg, rgba(var(--black-rgb), .75), transparent 60%); }
+.band .wrap { position: relative; z-index: 1; padding-bottom: clamp(40px, 6vw, 80px); }
+.band h2 { font: italic 900 clamp(44px, 7.4vw, 116px)/.95 var(--f-display); text-transform: uppercase; max-width: 11ch; }
+.band h2 span { color: var(--accent-hi); }
+.band p { margin-top: 18px; font: italic 400 20px/1.3 var(--f-serif); color: var(--ice); }
+
+/* Season chapters: photo and text swap sides on every row; the title runs onto the photo */
+.chapters { display: grid; gap: clamp(90px, 12vw, 170px); }
+.chapter { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+.chapter.rev .ch-media { order: 2; }
+.ch-media { position: relative; margin: 0; padding-bottom: 12%; }
+.ch-main { position: relative; z-index: 1; overflow: hidden; aspect-ratio: 4 / 3; background: var(--bg-800); cursor: zoom-in; border: 0; padding: 0; width: 100%;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 46px), calc(100% - 46px) 100%, 0 100%); }
+.chapter.rev .ch-main { clip-path: polygon(0 0, 100% 0, 100% 100%, 46px 100%, 0 calc(100% - 46px)); }
+.ch-main img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(.2, .8, .2, 1); }
+.ch-main:hover img { transform: scale(1.05); }
+.ch-disc { position: absolute; z-index: 0; bottom: -2%; right: -10%; width: 40%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--disc-a), var(--disc-b)); }
+.chapter.rev .ch-disc { right: auto; left: -10%; }
+/* Postage-stamp edge on the small photo, as in the team posters */
+.ch-inset { position: absolute; z-index: 2; bottom: 0; right: -4%; width: 44%; aspect-ratio: 4 / 3; overflow: hidden; border: 0; padding: 0; cursor: zoom-in; background: var(--white);
+  -webkit-mask: radial-gradient(circle at 0 50%, #0000 7px, #000 7.5px) 0 0 / 51% 24px repeat-y, radial-gradient(circle at 100% 50%, #0000 7px, #000 7.5px) 100% 0 / 51% 24px repeat-y;
+  mask: radial-gradient(circle at 0 50%, #0000 7px, #000 7.5px) 0 0 / 51% 24px repeat-y, radial-gradient(circle at 100% 50%, #0000 7px, #000 7.5px) 100% 0 / 51% 24px repeat-y; }
+.chapter.rev .ch-inset { right: auto; left: -4%; }
+.ch-inset img { width: 100%; height: 100%; object-fit: cover; }
+.ch-year { position: absolute; z-index: 3; top: -.5em; left: -.04em; font: italic 900 clamp(56px, 8vw, 128px)/1 var(--f-display); color: var(--accent-hi); text-shadow: 0 6px 24px rgba(0, 0, 0, .55); pointer-events: none; }
+.chapter.rev .ch-year { left: auto; right: -.04em; }
+.ch-text { position: relative; z-index: 4; display: grid; gap: 16px; }
+.ch-text .gr { font: italic 400 22px/1.2 var(--f-serif); color: var(--accent-hi); }
+.ch-text h3 { font: italic 900 clamp(32px, 3.6vw, 56px)/.98 var(--f-display); text-transform: uppercase; text-shadow: 0 6px 26px rgba(0, 0, 0, .55); }
+.chapter:not(.rev) .ch-text h3 { margin-left: -22%; }
+.chapter.rev .ch-text { text-align: right; }
+.chapter.rev .ch-text h3 { margin-right: -22%; }
+.ch-text p { color: var(--mute); }
+.ch-text ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; }
+.ch-text li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; padding: 14px 0; border-top: 1px solid var(--line); color: var(--ice); text-align: left; }
+.ch-text li:last-child { border-bottom: 1px solid var(--line); }
+.ch-text li svg { width: 22px; height: 22px; color: var(--accent-hi); margin-top: 2px; }
+.ch-text li b { font-weight: 800; color: var(--white); }
+.chapter.rev .ch-text li { grid-template-columns: minmax(0, 1fr) 28px; text-align: right; }
+.chapter.rev .ch-text li svg { order: 2; }
+@media (max-width: 860px) {
+  .chapter { grid-template-columns: minmax(0, 1fr); }
+  .chapter.rev .ch-media { order: 0; }
+  .ch-media { width: 92%; padding-bottom: 18%; }
+  .chapter.rev .ch-media { margin-left: auto; }
+  .ch-inset { width: 50%; right: -6%; }
+  .chapter.rev .ch-inset { left: -6%; }
+  .chapter:not(.rev) .ch-text h3, .chapter.rev .ch-text h3 { margin: 0; }
+}
+
+/* The squad: a sideways reel of team photos */
+.squad { position: relative; overflow: hidden; }
+.reel { display: flex; gap: clamp(16px, 2vw, 28px); padding-inline: var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 8px; }
+.reel::-webkit-scrollbar { display: none; }
+.reel.pinned { overflow: visible; width: max-content; scroll-snap-type: none; }
+.frame { flex: none; margin: 0; scroll-snap-align: center; display: grid; gap: 12px; }
+.frame:nth-child(even) { margin-top: clamp(40px, 8vh, 90px); }
+.frame button { display: block; height: clamp(260px, 52vh, 520px); border: 0; padding: 0; overflow: hidden; cursor: zoom-in; background: var(--bg-800); position: relative; box-shadow: 10px 10px 0 rgba(var(--black-rgb), .55); }
+.frame button::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 0 var(--white); transition: box-shadow .35s; }
+.frame button:hover::after { box-shadow: inset 0 0 0 4px var(--white); }
+.frame img { height: 100%; width: auto; max-width: none; transition: transform .9s cubic-bezier(.2, .8, .2, 1); }
+.frame button:hover img { transform: scale(1.05); }
+.frame figcaption { display: flex; gap: 12px; align-items: baseline; font: 700 12px/1.4 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ice); max-width: 46ch; }
+.frame figcaption b { flex: none; white-space: nowrap; font: italic 900 18px/1 var(--f-display); color: var(--accent-hi); }
+@media (min-width: 901px) { .squad.is-pinned { min-height: 100vh; padding-block: 64px 40px; display: flex; flex-direction: column; justify-content: center; } .squad.is-pinned .sec-head { margin-bottom: 28px; } .squad.is-pinned .sec-title { font-size: clamp(40px, 5vw, 80px); } }
+@media (max-width: 760px) { .frame button { height: 300px; } .frame:nth-child(even) { margin-top: 36px; } }
+
+/* Trophy cabinet */
+.cabinet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 20px; perspective: 1000px; }
+.trophy { position: relative; padding: 30px 26px 28px; background: var(--pattern), linear-gradient(165deg, var(--card-1), var(--card-2) 75%); border: 1px solid var(--line); transform-style: preserve-3d; transition: transform .25s ease, border-color .3s; will-change: transform; overflow: hidden; }
+.trophy::before { content: ""; position: absolute; inset: 0; background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%), rgba(var(--accent-hi-rgb), .25), transparent 60%); opacity: 0; transition: opacity .3s; pointer-events: none; }
+.trophy:hover { border-color: rgba(var(--accent-hi-rgb), .6); }
+.trophy:hover::before { opacity: 1; }
+.trophy .icon { width: 54px; height: 54px; color: #F2C14E; transform: translateZ(40px); }
+.trophy .tag { position: absolute; top: 24px; right: 22px; font: italic 400 16px/1 var(--f-serif); color: var(--ice); }
+.trophy h3 { margin-top: 24px; font: italic 900 22px/1.1 var(--f-display); text-transform: uppercase; transform: translateZ(26px); }
+.trophy p { margin-top: 8px; color: var(--ice); opacity: .85; font-size: 14px; transform: translateZ(18px); }
+.trophy .res { display: inline-block; margin-top: 18px; padding: 7px 12px; background: var(--white); color: var(--black); font: italic 900 12px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 760px) {
+  .cabinet { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scrollbar-width: none; }
+  .cabinet::-webkit-scrollbar { display: none; }
+  .trophy { flex: none; width: 78%; scroll-snap-align: center; }
+}
+
+/* Roster: a night-match poster. Floodlights, glowing white type tilted in perspective, the No. 14 shirt in the middle */
+.roster { position: relative; overflow: hidden; isolation: isolate; min-height: max(640px, 92vh); display: flex; align-items: center; padding-block: clamp(90px, 10vw, 140px); background: #07020F; }
+.roster-bg { position: absolute; inset: -4%; z-index: -3; background: url(img/g11-huddle.webp) center 40% / cover; filter: grayscale(1) brightness(.32) blur(3px); }
+.roster::before { content: ""; position: absolute; inset: 0; z-index: -2; background:
+  radial-gradient(34% 30% at 6% 14%, rgba(236, 224, 255, .55), transparent 62%),
+  radial-gradient(26% 26% at 44% 4%, rgba(var(--accent-hi-rgb), .45), transparent 66%),
+  radial-gradient(30% 30% at 96% 20%, rgba(var(--accent-rgb), .4), transparent 70%),
+  linear-gradient(180deg, rgba(58, 18, 120, .62) 0%, rgba(22, 6, 44, .74) 52%, rgba(8, 26, 16, .82) 80%, #050308 100%); }
+.roster-swoosh { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; opacity: .9; }
+.roster-beam { position: absolute; z-index: -1; top: -10%; left: 4%; width: 18%; height: 120%; background: linear-gradient(180deg, rgba(236, 224, 255, .22), transparent 70%); transform: rotate(-24deg); transform-origin: top; filter: blur(6px); pointer-events: none; }
+.roster-grid { position: relative; width: 100%; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .55fr) minmax(0, 1fr); align-items: center; gap: clamp(12px, 2vw, 32px); perspective: 1100px; }
+.glow { color: #fff; text-shadow: 0 0 4px rgba(255, 255, 255, .9), 0 0 18px rgba(var(--accent-hi-rgb), .95), 0 0 44px rgba(var(--accent-rgb), .8); }
+.roster-list { position: relative; z-index: 3; list-style: none; margin: 0; padding: 0; display: grid; gap: .28em; transform: rotateY(26deg) rotateZ(5deg); transform-origin: left center; font: italic 900 clamp(18px, 2.05vw, 32px)/1.12 var(--f-display); }
+.roster-list li { display: flex; align-items: baseline; gap: .5em; white-space: nowrap; }
+.roster-list b { min-width: 1.5em; font-weight: 900; }
+.roster-list .me { font-size: 1.32em; margin-bottom: .18em; }
+.roster-list .me b { color: var(--accent-hi); }
+.roster-list small { display: block; font: 700 .42em/1 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--ice); text-shadow: 0 0 10px rgba(var(--accent-hi-rgb), .8); margin-top: .5em; }
+.roster-player { position: relative; justify-self: center; height: min(66vh, 600px); aspect-ratio: 902 / 1361; margin: 0; }
+.roster-player img { width: 100%; height: 100%; filter: drop-shadow(0 0 2px rgba(255, 255, 255, .7)) drop-shadow(0 0 26px rgba(var(--accent-hi-rgb), .7));
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent); mask-image: linear-gradient(180deg, #000 78%, transparent); }
+.roster-player::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: 4%; height: 7%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .7), transparent); z-index: -1; }
+.roster-title { position: relative; z-index: 3; text-align: right; transform: rotateY(-24deg) rotateZ(-5deg); transform-origin: right center; }
+.roster-title .ghost { display: block; font: italic 900 clamp(40px, 5.6vw, 92px)/.9 var(--f-display); color: rgba(var(--accent-hi-rgb), .3); letter-spacing: .02em; }
+.roster-title .big { display: block; font: italic 900 clamp(34px, 4.6vw, 74px)/.9 var(--f-display); letter-spacing: -.03em; animation: flicker 7s linear infinite; }
+.roster-title .year { display: block; margin-top: .06em; font: italic 900 clamp(64px, 9vw, 150px)/.85 var(--f-display); letter-spacing: -.03em; }
+.roster-title .note { display: block; margin-top: 18px; font: italic 400 clamp(17px, 1.6vw, 22px)/1.3 var(--f-serif); color: var(--ice); }
+@keyframes flicker { 0%, 18%, 20.5%, 23%, 54%, 56.5%, 100% { opacity: 1; } 19%, 22%, 55.5% { opacity: .45; } }
+@media (max-width: 900px) {
+  .roster-grid { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 28px; }
+  .roster-title { order: -1; text-align: center; transform: rotateY(-10deg) rotateZ(-3deg); transform-origin: center; }
+  .roster-player { height: 380px; }
+  .roster-list { transform: rotateY(14deg) rotateZ(3deg); font-size: clamp(18px, 5vw, 24px); }
+}
+
+/* Match-day wall */
+.gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: clamp(80px, 8.4vw, 120px); gap: 12px; }
+.shot { position: relative; overflow: hidden; margin: 0; background: var(--bg-800); cursor: zoom-in; border: 0; padding: 0; }
+.shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2, .8, .2, 1), filter .5s; }
+.shot:hover img { transform: scale(1.07); }
+.shot figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 14px 12px; background: linear-gradient(transparent, rgba(var(--black-rgb), .92)); font: 700 12px/1.35 var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: var(--ice); transform: translateY(100%); transition: transform .4s ease; text-align: left; }
+.shot:hover figcaption, .shot:focus-visible figcaption { transform: none; }
+.shot::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 0 var(--white); transition: box-shadow .35s; pointer-events: none; }
+.shot:hover::after { box-shadow: inset 0 0 0 4px var(--white); }
+@media (max-width: 760px) {
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; grid-auto-flow: dense; gap: 8px; }
+  .shot { grid-column: span 2 !important; grid-row: auto !important; aspect-ratio: 3 / 2; }
+  .shot.tall { grid-column: span 1 !important; aspect-ratio: 2 / 3; }
+  .shot figcaption { transform: none; font-size: 10px; padding: 24px 10px 8px; }
+}
+
+/* Beyond the pitch */
+.beyond { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.beyond-copy { display: grid; gap: 20px; }
+.beyond-copy h3 { font: italic 900 clamp(30px, 3.4vw, 46px)/1.02 var(--f-display); text-transform: uppercase; }
+.medals { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.medals li { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 14px; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
+.medals li:last-child { border-bottom: 1px solid var(--line); }
+.medal { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font: italic 900 16px/1 var(--f-display); color: #1a1a1a; }
+.medal.g { background: radial-gradient(circle at 35% 30%, #FFE28A, #E0A82E); }
+.medal.s { background: radial-gradient(circle at 35% 30%, #F1F5FB, #9AA8BE); }
+.medal.b { background: radial-gradient(circle at 35% 30%, #F2B98C, #A9603A); }
+.medals b { display: block; font-weight: 800; }
+.medals span { color: var(--mute); font-size: 14px; }
+.also { color: var(--mute); }
+@media (max-width: 860px) { .beyond { grid-template-columns: minmax(0, 1fr); } }
+
+/* Final whistle */
+.final { position: relative; overflow: hidden; text-align: center; padding-block: clamp(110px, 14vw, 200px); }
+.final .label { margin-bottom: 26px; }
+.final .big { font: italic 900 clamp(60px, 12vw, 190px)/.92 var(--f-display); text-transform: uppercase; letter-spacing: -.02em; }
+.final .big span { color: var(--accent-hi); }
+.final p { margin: 26px auto 0; max-width: 46ch; color: var(--ice); }
+.final .hero-cta { justify-content: center; }
+.mail { font: italic 900 clamp(16px, 1.8vw, 22px)/1 var(--f-display); color: var(--white); user-select: all; }
+footer { padding: 26px var(--gutter) calc(26px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font: 700 11px/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+
+/* Lightbox */
+dialog.lb { width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(var(--black-rgb), .95); color: var(--white); cursor: zoom-out; }
+dialog.lb[open] { display: grid; place-items: center; align-content: center; gap: 14px; }
+dialog.lb::backdrop { background: transparent; }
+dialog.lb img { max-width: min(92vw, 1200px); max-height: 80vh; object-fit: contain; }
+dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ice); text-align: center; padding-inline: 20px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .ticker-track, .scroll-hint i, .roster-title .big { animation: none; }
+  .loader { display: none; }
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+<!-- Brushed-paint texture for the hero number -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="grunge" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="7" result="warp"/>
+    <feDisplacementMap in="SourceGraphic" in2="warp" scale="26" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+    <feTurbulence type="fractalNoise" baseFrequency=".012 .32" numOctaves="3" seed="11" result="grain"/>
+    <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -9 0 0 0 6.1" result="holes"/>
+    <feComposite in="rough" in2="holes" operator="in"/>
+  </filter>
+</svg>
+
+<div class="loader" id="loader" aria-hidden="true"><b>07</b><span>KICK-OFF</span></div>
+
+<header class="top" id="top">
+  <a class="brand" href="#home"><b>TOAN <i>#7</i></b><span>Sport portfolio</span></a>
+  <nav aria-label="Sections"><a href="#stats">Stats</a><a href="#seasons">Seasons</a><a href="#squad">Squad</a><a href="#trophies">Trophies</a><a href="#roster">Roster</a><a href="#gallery">Match day</a><a href="#contact">Contact</a></nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="stripes-layer stripes" aria-hidden="true"></div>
+  <div class="hero-flare" aria-hidden="true"></div>
+  <svg class="hero-streak" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <polygon points="100,2 47,74 55,70"/>
+    <polygon points="100,16 58,80 62,77" opacity=".7"/>
+  </svg>
+  <figure class="hero-player"><div class="hero-frame" aria-hidden="true"></div><p class="hero-num" aria-hidden="true"><span>7</span></p><img src="img/hero-player.webp" alt="Nguyen Duc Toan seen from behind in his school-team shirt, No. 14" width="902" height="1361" fetchpriority="high"></figure>
+  <div class="hero-vcp" aria-hidden="true"><b>VCP</b><span>Football</span></div>
+  <div class="hero-fade" aria-hidden="true"></div>
+  <div class="hero-inner wrap">
+    <div class="hero-copy">
+      <p class="kicker" data-hero>Vinschool Central Park, Ho Chi Minh City</p>
+      <div class="bar" data-hero><i></i>Football · 9 years · 7 titles<span class="bar-nums">· #7 class · #14 school</span></div>
+      <h1 class="name"><span class="line"><span>Nguyen</span></span><span class="line"><span>Duc Toan</span></span></h1>
+      <blockquote class="hero-quote" data-hero><p>“The more difficult the victory, the greater the happiness in winning.”</p><cite>Pelé</cite></blockquote>
+      <p class="hero-sub" data-hero>Seven football titles across four school seasons, from the Vinschool Central Park Championship to the Vin10 Cup and SportsFest 2025.</p>
+      <div class="hero-cta" data-hero>
+        <a class="btn" href="#trophies"><span>See the trophies</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+        <a class="btn ghost" href="#seasons"><span>Season by season</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><i></i>SCROLL</div>
+</section>
+
+<div class="ticker" aria-label="Titles">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<section class="sec" id="stats">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="sec-title" data-rise>By the <em>numbers</em></h2><p class="sec-note" data-rise>Counted from the certificates and the trophy photos, nothing rounded up.</p></div>
+    <div class="board">
+      <div class="cell" data-rise><b data-count="9">9</b><span>Years playing football</span></div>
+      <div class="cell" data-rise><b data-count="7">7</b><span>Football titles</span></div>
+      <div class="cell" data-rise><b data-count="4">4</b><span>School championships<br>(Grades 7, 9, 10, 11)</span></div>
+      <div class="cell nums" data-rise><b><span data-count="7">7</span><i>/</i><span data-count="14">14</span></b><span>Shirt numbers<br>(class team / school team)</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-label="On the pitch">
+  <img src="img/g10-dribbling.webp" alt="Toan, No. 7, on the pitch with teammates during the 2024–25 Vinschool Central Park Football Championship" loading="lazy">
+  <div class="wrap"><h2 data-rise>Seven titles. <span>Earned on the pitch.</span></h2><p data-rise>VCP Football Championship, 2024–2025</p></div>
+</section>
+
+<section class="sec" id="seasons">
+  <div class="wrap">
+    <div class="sec-head flip"><h2 class="sec-title" data-rise>Season <em>by season</em></h2><p class="sec-note" data-rise>Four school seasons, seven titles.</p></div>
+    <div class="chapters" id="chapters"></div>
+  </div>
+</section>
+
+<section class="sec squad stripes" id="squad">
+  <div class="wrap"><div class="sec-head"><h2 class="sec-title" data-rise>The <em>squad</em></h2><p class="sec-note" data-rise>Every title was a team effort. Scroll on, or swipe, to meet the teams.</p></div></div>
+  <div class="reel" id="reel"></div>
+</section>
+
+<section class="sec" id="trophies">
+  <div class="wrap">
+    <div class="sec-head flip"><h2 class="sec-title" data-rise>Trophy <em>cabinet</em></h2><p class="sec-note" data-rise>Every title, with the level it was won at and the season it came in.</p></div>
+    <div class="cabinet" id="cabinet"></div>
+  </div>
+</section>
+
+<section class="roster" id="roster" aria-labelledby="rosterTitle">
+  <div class="roster-bg" aria-hidden="true"></div>
+  <div class="roster-beam" aria-hidden="true"></div>
+  <svg class="roster-swoosh" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="sw" x1="0" x2="1"><stop offset="0" stop-color="#7C3AED" stop-opacity="0"/><stop offset=".6" stop-color="#7C3AED" stop-opacity=".55"/><stop offset="1" stop-color="#B47CFF" stop-opacity=".2"/></linearGradient></defs>
+    <path d="M520 0C760 120 980 60 1180 0H1440V140C1240 260 1040 300 860 240C720 190 620 100 520 0Z" fill="url(#sw)"/>
+    <path d="M900 900C1040 700 1260 640 1440 660V900Z" fill="url(#sw)" opacity=".5"/>
+  </svg>
+  <div class="wrap roster-grid">
+    <ul class="roster-list glow">
+      <li class="me"><b>14</b><span>Nguyễn Đức Toàn<small>School team · VinOlympic 2026 roster</small></span></li>
+      <li><b>14</b><span>School team shirt</span></li>
+      <li><b>7</b><span>Class team shirt</span></li>
+      <li><b>7</b><span>Football titles</span></li>
+      <li><b>4</b><span>School championships</span></li>
+      <li><b>9</b><span>Years on the pitch</span></li>
+    </ul>
+    <figure class="roster-player"><img src="img/hero-player.webp" alt="Toan in his No. 14 school-team shirt" loading="lazy"></figure>
+    <h2 class="roster-title" id="rosterTitle"><span class="ghost">Roster</span><span class="big glow">VinOlympic</span><span class="year glow">2026</span><span class="note">Named to the Vinschool Central Park squad, shirt No. 14.</span></h2>
+  </div>
+</section>
+
+<section class="sec stripes" id="gallery" hidden>
+  <div class="wrap">
+    <div class="sec-head"><h2 class="sec-title" data-rise>Match <em>day</em></h2><p class="sec-note" data-rise>No. 7 in action. Tap any photo to see it full size.</p></div>
+    <div class="gallery" id="galleryGrid"></div>
+  </div>
+</section>
+
+<section class="sec" id="beyond">
+  <div class="wrap beyond">
+    <div class="beyond-copy">
+      <span class="label" data-rise>Beyond the pitch</span>
+      <h3 data-rise>Basketball first. Three medals before secondary school.</h3>
+      <p class="also" data-rise>Also plays badminton, basketball and swimming recreationally.</p>
+    </div>
+    <div>
+      <ul class="medals" data-rise>
+        <li><span class="medal g">1</span><div><b>Gold medal · District Basketball Tournament</b><span>Grade 4 · 2018–19</span></div></li>
+        <li><span class="medal s">2</span><div><b>Silver medal · City Basketball Tournament</b><span>Grade 4 · 2018–19</span></div></li>
+        <li><span class="medal b">3</span><div><b>Bronze medal · Phu Dong Games, district level</b><span>Grade 5 · 2019–20</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="final stripes" id="contact">
+  <div class="wrap">
+    <span class="label" data-rise>Final whistle</span>
+    <h2 class="big">Let's <span>talk</span></h2>
+    <p data-rise>Coaches, teammates or admissions officers: I'm glad to share match footage and more about the teams I've played for.</p>
+    <p class="mail" data-rise>toan.nguyen031009@gmail.com</p>
+    <div class="hero-cta" data-rise>
+      <button class="btn" id="copyMail"><span>Copy email</span></button>
+      <a class="btn ghost" href="https://docs.google.com/document/d/1fCfrPmPxMZW4F0GU9t34tQXYumSqC5wBC2aWwJ-gjRU/edit?usp=sharing" target="_blank" rel="noopener"><span>View resume</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><span>Nguyen Duc Toan · #7</span><span>Sport portfolio · 2026</span></footer>
+
+<dialog class="lb" id="lb"><img id="lbImg" alt=""><p id="lbCap"></p></dialog>
+
+<script>
+/* ---------- Content: only what the certificates, trophy photos and résumé show ---------- */
+const TITLES = [
+  "VCP Champion · Grade 7", "VCP Champion · Grade 9", "Vin10 Cup Champion · 2024", "VinOlympic Champion · Grade 9",
+  "VCP Champion · Grade 10", "VCP Champion · Grade 11", "SportsFest 2025 · First Prize"
+];
+const SEASONS = [
+  { year: "21–22", label: "2021–2022 · Grade 7", title: "First school crown", note: "The first Vinschool Central Park title, celebrated with the champion's cup and first-place pennant.",
+    main: ["img/g07-cup.webp", "Team with the champion's cup and first-place pennant · 2021–22"], inset: ["img/g07-medals.webp", "Full team with medals · 2021–22"],
+    items: [["Champion", "Vinschool Central Park Football Championship"]] },
+  { year: "23–24", label: "2023–2024 · Grade 9", title: "Three titles, one season", note: "School, city-system and national-system champions in the same year.",
+    main: ["img/g09-team-hoop.webp", "Champions with trophies and pennants · 2023–24"], inset: ["img/v10-cup.webp", "Vin10 champions with the cup · March 2024"],
+    items: [["Champion", "Vinschool Central Park Football Championship"], ["Champion", "Vinschool's Football Cup 2024 (Vin10), final round March 2024"], ["Champion", "VinOlympic, Vinschool HCMC System"]] },
+  { year: "24–25", label: "2024–2025 · Grade 10", title: "Defending the title", note: "Back-to-back school champions, defending the Vinschool Central Park title.",
+    main: ["img/g10-lineup.webp", "Team on the pitch · VCP Championship 2024–25"], inset: ["img/g10-no7-on-pitch.webp", "No. 7 on the pitch · 2024–25"],
+    items: [["Champion", "Vinschool Central Park Football Championship"]] },
+  { year: "25–26", label: "2025–2026 · Grade 11", title: "Two trophies to finish", note: "Sports Week champions at school, then First Prize at SportsFest 2025, followed by certificates of merit at the year-end ceremony.",
+    main: ["img/g11-cup.webp", "Champion's cup and first-prize pennant · 2025–26"], inset: ["img/sf-gold.webp", "Gold medals · SportsFest 2025"],
+    items: [["Champion", "Vinschool Central Park Football Championship · Sports Week first prize"], ["First Prize", "SportsFest 2025, Swinburne · Soccer, Series B"]] }
+];
+/* Team photos for the sideways reel */
+const SQUAD = [
+  { src: "img/g11-coach.webp", tag: "25–26", cap: "Team with the coach" },
+  { src: "img/sf-pitch.webp", tag: "SF 25", cap: "Celebrating on the pitch · SportsFest 2025" },
+  { src: "img/g09-trophies.webp", tag: "23–24", cap: "Three-title season · trophies and pennants" },
+  { src: "img/g11-players-cup.webp", tag: "25–26", cap: "Teammates with the cup and pennant" },
+  { src: "img/sf-award.webp", tag: "SF 25", cap: "Award ceremony · First Prize, Series B" },
+  { src: "img/g11-sports-week.webp", tag: "25–26", cap: "Sports Week first prize ceremony" },
+  { src: "img/sf-stands.webp", tag: "SF 25", cap: "The team in the stands" },
+  { src: "img/v10-podium.webp", tag: "Vin10", cap: "On the podium as champions · Vinschool's Football Cup 2024" },
+  { src: "img/v10-lineup.webp", tag: "Vin10", cap: "Lined up before the final · March 2024" },
+  { src: "img/g09-cup.webp", tag: "23–24", cap: "Champions with cup, medals and certificates" },
+  { src: "img/v10-both.webp", tag: "Vin10", cap: "Both teams before the final" },
+  { src: "img/g11-year-end.webp", tag: "25–26", cap: "Year-end ceremony · certificates of merit" },
+  { src: "img/sf-huddle.webp", tag: "SF 25", cap: "Huddle before the match" }
+];
+const TROPHIES = [
+  { name: "VCP Championship", tag: "Grade 7", detail: "Vinschool Central Park Football Championship, 2021–22", res: "Champion" },
+  { name: "VCP Championship", tag: "Grade 9", detail: "Vinschool Central Park Football Championship, 2023–24", res: "Champion" },
+  { name: "Vin10 Cup", tag: "Grade 9", detail: "Vinschool's Football Cup 2024, marking Vinschool's 10th anniversary · final round, HCMC, March 2024", res: "Champion" },
+  { name: "VinOlympic", tag: "Grade 9", detail: "Vinschool HCMC System Football Tournament", res: "Champion" },
+  { name: "VCP Championship", tag: "Grade 10", detail: "Vinschool Central Park Football Championship, 2024–25", res: "Champion" },
+  { name: "VCP Championship", tag: "Grade 11", detail: "Vinschool Central Park Football Championship, 2025–26 (Sports Week)", res: "Champion" },
+  { name: "SportsFest 2025", tag: "Grade 11", detail: "Swinburne · Soccer, Series B", res: "First Prize" }
+];
+/* Action photos. span = columns of 12, rows = grid rows; tall = portrait */
+const GALLERY = [
+  { src: "img/g10-attacking.webp", cap: "No. 7 on the attack · VCP Championship 2024–25", span: 8, rows: 4 },
+  { src: "img/g11-no7-cup.webp", cap: "With the champion's cup · VCP Championship 2025–26", span: 4, rows: 4, tall: true },
+  { src: "img/g10-duel.webp", cap: "One-on-one duel · 2024–25", span: 4, rows: 2 },
+  { src: "img/g10-dribbling-3.webp", cap: "Dribbling past defenders · 2024–25", span: 4, rows: 2 },
+  { src: "img/g10-goal.webp", cap: "Goal celebration · 2024–25", span: 4, rows: 2 },
+  { src: "img/g10-huddle.webp", cap: "Team huddle before kick-off · 2024–25", span: 3, rows: 4, tall: true },
+  { src: "img/sf-celebrate.webp", cap: "Celebrating the win · SportsFest 2025", span: 5, rows: 4 },
+  { src: "img/g10-defending.webp", cap: "Tracking back to defend · 2024–25", span: 4, rows: 4 },
+  { src: "img/g11-huddle.webp", cap: "Team huddle on the pitch · 2025–26", span: 6, rows: 3 },
+  { src: "img/sf-board.webp", cap: "First Prize, Series B · SportsFest 2025", span: 6, rows: 3 },
+  { src: "img/v10-final-1.webp", cap: "On the pitch in the Vin10 Cup final · March 2024", span: 5, rows: 3 },
+  { src: "img/v10-talk.webp", cap: "Talking tactics before the Vin10 final", span: 4, rows: 3 },
+  { src: "img/v10-huddle.webp", cap: "Team huddle during the Vin10 Cup", span: 3, rows: 3 }
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const CUP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8M9 18h6"/></svg>';
+const TROPHY = '<svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 8h24v14a12 12 0 0 1-24 0V8z" fill="currentColor" fill-opacity=".18"/><path d="M20 13H11a8 8 0 0 0 9 10M44 13h9a8 8 0 0 1-9 10M32 34v9M24 56h16M26 43h12v13H26z"/></svg>';
+const pic = ([src, cap], cls) => `<button class="${cls}" data-src="${esc(src)}" data-cap="${esc(cap)}"><img src="${esc(src)}" alt="${esc(cap)}" loading="lazy"></button>`;
+
+$("#ticker").innerHTML = [...TITLES, ...TITLES].map(x => `<span>${esc(x)}</span>`).join("");
+$("#chapters").innerHTML = SEASONS.map((s, i) => `<article class="chapter${i % 2 ? " rev" : ""}">
+  <figure class="ch-media"><span class="ch-disc" aria-hidden="true"></span><span class="ch-year" aria-hidden="true">${esc(s.year)}</span>${pic(s.main, "ch-main")}${pic(s.inset, "ch-inset")}</figure>
+  <div class="ch-text"><span class="gr">${esc(s.label)}</span><h3>${esc(s.title)}</h3><p>${esc(s.note)}</p>
+    <ul>${s.items.map(([r, t]) => `<li>${CUP}<span><b>${esc(r)}</b> · ${esc(t)}</span></li>`).join("")}</ul></div></article>`).join("");
+$("#reel").innerHTML = SQUAD.map(f => `<figure class="frame">${pic([f.src, f.cap], "")}<figcaption><b>${esc(f.tag)}</b>${esc(f.cap)}</figcaption></figure>`).join("");
+$("#cabinet").innerHTML = TROPHIES.map(t => `<article class="trophy" tabindex="0">${TROPHY}<span class="tag">${esc(t.tag)}</span><h3>${esc(t.name)}</h3><p>${esc(t.detail)}</p><span class="res">${esc(t.res)}</span></article>`).join("");
+if (GALLERY.length) {
+  $("#gallery").hidden = false;
+  $("#galleryGrid").innerHTML = GALLERY.map(g => `<button class="shot${g.tall ? " tall" : ""}" style="grid-column:span ${g.span || 4};grid-row:span ${g.rows || 2}" data-src="${esc(g.src)}" data-cap="${esc(g.cap)}"><img src="${esc(g.src)}" alt="${esc(g.cap)}" loading="lazy"><figcaption>${esc(g.cap)}</figcaption></button>`).join("");
+}
+
+/* Lightbox, copy, top bar */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-src]"); if (!b) return;
+  $("#lbImg").src = b.dataset.src; $("#lbCap").textContent = b.dataset.cap || ""; $("#lb").showModal();
+});
+$("#lb").addEventListener("click", () => $("#lb").close());
+$("#copyMail").addEventListener("click", e => {
+  const t = "toan.nguyen031009@gmail.com", label = e.currentTarget.querySelector("span");
+  try { navigator.clipboard.writeText(t).then(() => { label.textContent = "Copied"; setTimeout(() => label.textContent = "Copy email", 1800); }, () => {}); } catch {}
+});
+addEventListener("scroll", () => $("#top").classList.toggle("solid", scrollY > 40), { passive: true });
+
+/* Trophy tilt + light that follows the pointer */
+document.querySelectorAll(".trophy").forEach(card => {
+  card.addEventListener("pointermove", e => {
+    if (e.pointerType !== "mouse") return;
+    const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    card.style.transform = `rotateY(${(x - .5) * 14}deg) rotateX(${(.5 - y) * 12}deg)`;
+    card.style.setProperty("--mx", x * 100 + "%"); card.style.setProperty("--my", y * 100 + "%");
+  });
+  card.addEventListener("pointerleave", () => card.style.transform = "");
+});
+
+/* ---------- Motion (GSAP). Without it, or with reduced motion, the page is simply static. ---------- */
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const loader = $("#loader");
+if (!window.gsap || reduce) { loader.remove(); }
+else {
+  gsap.registerPlugin(ScrollTrigger);
+  const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
+  intro.from(".loader b", { scale: .6, opacity: 0, duration: .7 })
+       .to(".loader", { yPercent: -100, duration: .8, ease: "power4.inOut" }, "+=.25")
+       .add(() => loader.remove())
+       .from(".stripes-layer, .hero-flare", { opacity: 0, duration: 1 }, "-=.5")
+       .from(".hero-streak polygon", { scaleX: 0, transformOrigin: "100% 0%", duration: 1, stagger: .12, ease: "power3.inOut" }, "<.1")
+       .from(".hero-num span", { scale: 1.5, opacity: 0, duration: 1.2, transformOrigin: "50% 60%" }, "<.1")
+       .from(".hero-frame", { yPercent: 100, duration: 1, ease: "power4.out" }, "<.15")
+       .from(".hero-vcp > *", { yPercent: 40, opacity: 0, duration: 1, stagger: .1 }, "<")
+       .from(".hero-player img", { yPercent: 14, opacity: 0, duration: 1.3, ease: "power3.out" }, "<.15")
+       .from(".name .line > span", { yPercent: 110, duration: 1.1, stagger: .12 }, "<.1")
+       .from("[data-hero]", { y: 30, opacity: 0, duration: .9, stagger: .1 }, "<.3");
+
+  /* Hero depth: scroll moves the layers at different speeds, the mouse pulls them apart */
+  const heroST = () => ({ trigger: ".hero", start: "top top", end: "bottom top", scrub: true });
+  gsap.to(".hero-num", { yPercent: -18, ease: "none", scrollTrigger: heroST() });
+  gsap.to(".hero-player", { yPercent: 8, ease: "none", scrollTrigger: heroST() });
+  gsap.to(".hero-copy", { y: -60, ease: "none", scrollTrigger: { trigger: ".hero", start: "center top", end: "bottom top", scrub: true } });
+  if (matchMedia("(pointer: fine)").matches) {
+    const numX = gsap.quickTo(".hero-num span", "x", { duration: .8 }), plX = gsap.quickTo(".hero-player img", "x", { duration: .8 });
+    $(".hero").addEventListener("pointermove", e => { const k = e.clientX / innerWidth - .5; numX(k * -40); plX(k * 22); });
+  }
+
+  /* Photo band parallax */
+  gsap.fromTo(".band img", { yPercent: -8 }, { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".band", start: "top bottom", end: "bottom top", scrub: true } });
+
+  /* Rise-ins */
+  gsap.utils.toArray("[data-rise]").forEach(el => gsap.from(el, { y: 50, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
+
+  /* Chapters: photo slides in from its own side, text from the other, the disc rolls in */
+  gsap.utils.toArray(".chapter").forEach((ch, i) => {
+    const dir = i % 2 ? 1 : -1, st = { trigger: ch, start: "top 78%" };
+    gsap.from(ch.querySelector(".ch-main"), { xPercent: dir * 22, opacity: 0, duration: 1.3, ease: "power4.out", scrollTrigger: st });
+    gsap.from(ch.querySelector(".ch-main img"), { scale: 1.35, duration: 1.8, ease: "power3.out", scrollTrigger: st });
+    gsap.from(ch.querySelector(".ch-disc"), { scale: 0, rotate: -90, duration: 1.1, delay: .2, ease: "back.out(1.6)", scrollTrigger: st });
+    gsap.from(ch.querySelector(".ch-inset"), { y: 90, rotate: dir * -6, opacity: 0, duration: 1.2, delay: .3, ease: "power3.out", scrollTrigger: st });
+    gsap.from(ch.querySelector(".ch-year"), { x: dir * 60, opacity: 0, duration: 1.2, delay: .1, ease: "power3.out", scrollTrigger: st });
+    gsap.from(ch.querySelectorAll(".ch-text > *, .ch-text li"), { x: -dir * 70, opacity: 0, duration: .9, stagger: .07, delay: .15, ease: "power3.out", scrollTrigger: st });
+    gsap.to(ch.querySelector(".ch-inset"), { yPercent: -18, ease: "none", scrollTrigger: { trigger: ch, start: "top bottom", end: "bottom top", scrub: true } });
+  });
+
+  /* Roster: floodlight sweeps, title powers on, the list slides in along its tilt */
+  const rst = { trigger: "#roster", start: "top 70%" };
+  gsap.from(".roster-beam", { rotate: -60, opacity: 0, duration: 1.6, ease: "power3.out", scrollTrigger: rst });
+  gsap.from(".roster-title > span", { opacity: 0, x: 80, filter: "blur(12px)", duration: 1.1, stagger: .14, ease: "power3.out", scrollTrigger: rst });
+  gsap.from(".roster-player", { y: 90, opacity: 0, duration: 1.3, ease: "power3.out", scrollTrigger: rst });
+  gsap.from(".roster-list li", { x: -90, opacity: 0, duration: .9, stagger: .09, ease: "power3.out", scrollTrigger: rst });
+  gsap.to(".roster-beam", { rotate: -10, ease: "none", scrollTrigger: { trigger: "#roster", start: "top bottom", end: "bottom top", scrub: true } });
+
+  /* Trophies */
+  gsap.from(".trophy", { y: 70, opacity: 0, rotateX: -25, duration: .9, stagger: .08, ease: "power3.out", scrollTrigger: { trigger: "#cabinet", start: "top 80%" } });
+
+  /* Match-day wall: each photo wipes in, then settles */
+  gsap.utils.toArray(".shot").forEach((el, i) => {
+    gsap.from(el, { clipPath: "inset(100% 0 0 0)", duration: 1.1, ease: "power4.out", delay: (i % 3) * .08, scrollTrigger: { trigger: el, start: "top 90%" } });
+    gsap.from(el.querySelector("img"), { scale: 1.3, duration: 1.6, ease: "power3.out", delay: (i % 3) * .08, scrollTrigger: { trigger: el, start: "top 90%" } });
+  });
+
+  /* Scoreboard count-up */
+  document.querySelectorAll("[data-count]").forEach(el => {
+    const end = +el.dataset.count, o = { v: 0 };
+    gsap.to(o, { v: end, duration: 1.6, ease: "power2.out", onUpdate: () => el.textContent = Math.round(o.v), scrollTrigger: { trigger: el, start: "top 85%" } });
+  });
+
+  /* Squad reel: pinned and driven sideways by scroll on wide screens; native swipe on phones */
+  ScrollTrigger.matchMedia({
+    "(min-width: 901px)": () => {
+      const reel = $("#reel"), squad = $("#squad");
+      reel.classList.add("pinned"); squad.classList.add("is-pinned");
+      const dist = () => reel.scrollWidth - innerWidth + 40;
+      const tw = gsap.to(reel, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: squad, start: "top top", end: () => "+=" + dist(), pin: true, scrub: .6, invalidateOnRefresh: true } });
+      gsap.utils.toArray(".frame img").forEach(img => gsap.fromTo(img, { xPercent: -6 }, { xPercent: 6, ease: "none", scrollTrigger: { trigger: img.closest(".frame"), containerAnimation: tw, start: "left right", end: "right left", scrub: true } }));
+      return () => { reel.classList.remove("pinned"); squad.classList.remove("is-pinned"); };
+    },
+    "(max-width: 900px)": () => {
+      gsap.from(".frame", { x: 120, opacity: 0, duration: 1, stagger: .1, ease: "power3.out", scrollTrigger: { trigger: "#reel", start: "top 85%" } });
+    }
+  });
+
+  /* Final whistle */
+  gsap.from(".final .big", { scale: .85, opacity: 0, duration: 1.2, ease: "power4.out", scrollTrigger: { trigger: ".final", start: "top 75%" } });
+}
+</script>
+</body>
+</html>
