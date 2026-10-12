@@ -93,7 +93,7 @@ h1, h2, h3, p { margin: 0; }
 .hero-streak { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; pointer-events: none; filter: drop-shadow(0 0 14px var(--streak)); }
 .hero-streak polygon { fill: var(--streak); }
 /* The player figure carries its own frame (back) and brushed number (middle), sized in container units */
-.hero-player { position: absolute; z-index: 4; right: clamp(60px, 7vw, 140px); bottom: 0; height: 88%; aspect-ratio: 902 / 1361; margin: 0; pointer-events: none; isolation: isolate; container-type: size; }
+.hero-player { position: absolute; z-index: 4; right: clamp(60px, 7vw, 140px); bottom: 0; height: 88%; aspect-ratio: 907 / 1370; margin: 0; pointer-events: none; isolation: isolate; container-type: size; }
 .hero-player img { position: relative; z-index: 2; width: 100%; height: 100%; filter: drop-shadow(-2px -2px 0 rgba(var(--rim-rgb), .5)) drop-shadow(0 30px 50px rgba(0, 0, 0, .6)); }
 .hero-frame { position: absolute; z-index: 0; left: -16%; right: -6%; top: 36%; bottom: 0; background: var(--pattern), var(--frame-bg); box-shadow: 0 30px 80px rgba(0, 0, 0, .45), inset 0 0 0 1px rgba(255, 255, 255, .08); }
 .hero-frame::after { content: "07"; position: absolute; right: 4%; bottom: 2%; font: italic 900 22cqh/1 var(--f-display); color: rgba(255, 255, 255, .06); }
@@ -174,7 +174,7 @@ h1, h2, h3, p { margin: 0; }
 
 /* Full-bleed photo band */
 .band { position: relative; height: clamp(420px, 78vh, 760px); overflow: hidden; display: grid; align-items: end; }
-.band img { position: absolute; inset: -12% 0; width: 100%; height: 124%; object-fit: cover; object-position: 50% 45%; }
+.band img { position: absolute; inset: -12% 0; width: 100%; height: 124%; object-fit: cover; object-position: 62% 40%; }
 .band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, var(--black) 0%, rgba(var(--black-rgb), .15) 28%, rgba(var(--black-rgb), .2) 55%, var(--black) 100%), linear-gradient(90deg, rgba(var(--black-rgb), .75), transparent 60%); }
 .band .wrap { position: relative; z-index: 1; padding-bottom: clamp(40px, 6vw, 80px); }
 .band h2 { font: italic 900 clamp(44px, 7.4vw, 116px)/.95 var(--f-display); text-transform: uppercase; max-width: 11ch; }
@@ -277,7 +277,7 @@ h1, h2, h3, p { margin: 0; }
 .roster-list .me { font-size: 1.32em; margin-bottom: .18em; }
 .roster-list .me b { color: var(--accent-hi); }
 .roster-list small { display: block; font: 700 .42em/1 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--ice); text-shadow: 0 0 10px rgba(var(--accent-hi-rgb), .8); margin-top: .5em; }
-.roster-player { position: relative; justify-self: center; height: min(66vh, 600px); aspect-ratio: 902 / 1361; margin: 0; }
+.roster-player { position: relative; justify-self: center; height: min(66vh, 600px); aspect-ratio: 907 / 1370; margin: 0; }
 .roster-player img { width: 100%; height: 100%; filter: drop-shadow(0 0 2px rgba(255, 255, 255, .7)) drop-shadow(0 0 26px rgba(var(--accent-hi-rgb), .7));
   -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent); mask-image: linear-gradient(180deg, #000 78%, transparent); }
 .roster-player::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: 4%; height: 7%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .7), transparent); z-index: -1; }
@@ -380,7 +380,7 @@ dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-tran
     <polygon points="100,2 47,74 55,70"/>
     <polygon points="100,16 58,80 62,77" opacity=".7"/>
   </svg>
-  <figure class="hero-player"><div class="hero-frame" aria-hidden="true"></div><p class="hero-num" aria-hidden="true"><span>7</span></p><img src="img/hero-player.webp" alt="Nguyen Duc Toan seen from behind in his school-team shirt, No. 14" width="902" height="1361" fetchpriority="high"></figure>
+  <figure class="hero-player"><div class="hero-frame" aria-hidden="true"></div><p class="hero-num" aria-hidden="true"><span>7</span></p><img src="img/hero-player.webp" alt="Nguyen Duc Toan seen from behind in his school-team shirt, No. 14" width="907" height="1370" fetchpriority="high"></figure>
   <div class="hero-vcp" aria-hidden="true"><b>VCP</b><span>Football</span></div>
   <div class="hero-fade" aria-hidden="true"></div>
   <div class="hero-inner wrap">
@@ -416,8 +416,8 @@ dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-tran
 </section>
 
 <section class="band" aria-label="On the pitch">
-  <img src="img/g10-dribbling.webp" alt="Toan, No. 7, on the pitch with teammates during the 2024–25 Vinschool Central Park Football Championship" loading="lazy">
-  <div class="wrap"><h2 data-rise>Seven titles. <span>Earned on the pitch.</span></h2><p data-rise>VCP Football Championship, 2024–2025</p></div>
+  <img src="img/g11-sw-action.webp" alt="Toan, No. 7, on the ball at Sports Week in Grade 11" loading="lazy">
+  <div class="wrap"><h2 data-rise>Seven titles. <span>Earned on the pitch.</span></h2><p data-rise>Sports Week, Grade 11 · 2025–2026 · Photo: VCP.FUTBALL</p></div>
 </section>
 
 <section class="sec" id="seasons">
@@ -550,19 +550,20 @@ const TROPHIES = [
 ];
 /* Action photos. span = columns of 12, rows = grid rows; tall = portrait */
 const GALLERY = [
-  { src: "img/g10-attacking.webp", cap: "No. 7 on the attack · VCP Championship 2024–25", span: 8, rows: 4 },
+  { src: "img/g11-sw-action.webp", cap: "No. 7 on the ball · Sports Week, Grade 11 (2025–26) · Photo: VCP.FUTBALL", span: 8, rows: 4 },
   { src: "img/g11-no7-cup.webp", cap: "With the champion's cup · VCP Championship 2025–26", span: 4, rows: 4, tall: true },
+  { src: "img/g10-attacking.webp", cap: "No. 7 on the attack · VCP Championship 2024–25", span: 6, rows: 3 },
+  { src: "img/g10-goal.webp", cap: "Goal celebration · 2024–25", span: 6, rows: 3 },
   { src: "img/g10-duel.webp", cap: "One-on-one duel · 2024–25", span: 4, rows: 2 },
   { src: "img/g10-dribbling-3.webp", cap: "Dribbling past defenders · 2024–25", span: 4, rows: 2 },
-  { src: "img/g10-goal.webp", cap: "Goal celebration · 2024–25", span: 4, rows: 2 },
+  { src: "img/g10-defending.webp", cap: "Tracking back to defend · 2024–25", span: 4, rows: 2 },
   { src: "img/g10-huddle.webp", cap: "Team huddle before kick-off · 2024–25", span: 3, rows: 4, tall: true },
   { src: "img/sf-celebrate.webp", cap: "Celebrating the win · SportsFest 2025", span: 5, rows: 4 },
-  { src: "img/g10-defending.webp", cap: "Tracking back to defend · 2024–25", span: 4, rows: 4 },
-  { src: "img/g11-huddle.webp", cap: "Team huddle on the pitch · 2025–26", span: 6, rows: 3 },
+  { src: "img/g11-huddle.webp", cap: "Team huddle on the pitch · 2025–26", span: 4, rows: 4 },
   { src: "img/sf-board.webp", cap: "First Prize, Series B · SportsFest 2025", span: 6, rows: 3 },
-  { src: "img/v10-final-1.webp", cap: "On the pitch in the Vin10 Cup final · March 2024", span: 5, rows: 3 },
-  { src: "img/v10-talk.webp", cap: "Talking tactics before the Vin10 final", span: 4, rows: 3 },
-  { src: "img/v10-huddle.webp", cap: "Team huddle during the Vin10 Cup", span: 3, rows: 3 }
+  { src: "img/v10-final-1.webp", cap: "On the pitch in the Vin10 Cup final · March 2024", span: 6, rows: 3 },
+  { src: "img/v10-talk.webp", cap: "Talking tactics before the Vin10 final", span: 6, rows: 3 },
+  { src: "img/v10-huddle.webp", cap: "Team huddle during the Vin10 Cup", span: 6, rows: 3 }
 ];
 
 const $ = s => document.querySelector(s);
