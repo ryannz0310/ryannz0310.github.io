@@ -225,22 +225,53 @@ h1, h2, h3, p { margin: 0; }
   .chapter:not(.rev) .ch-text h3, .chapter.rev .ch-text h3 { margin: 0; }
 }
 
-/* The squad: a sideways reel of team photos */
+/* The squad: a sideways reel of team photos. Drag with the mouse, swipe, or use the arrows */
 .squad { position: relative; overflow: hidden; }
-.reel { display: flex; gap: clamp(16px, 2vw, 28px); padding-inline: var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 8px; }
+.reel { display: flex; gap: clamp(16px, 2vw, 28px); padding-inline: var(--gutter); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-inline: var(--gutter); scrollbar-width: none; padding-bottom: 8px; cursor: grab; touch-action: pan-x pan-y; }
 .reel::-webkit-scrollbar { display: none; }
-.reel.pinned { overflow: visible; width: max-content; scroll-snap-type: none; }
-.frame { flex: none; margin: 0; scroll-snap-align: center; display: grid; gap: 12px; }
+.reel.dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.reel.dragging .frame button { pointer-events: none; }
+.frame { flex: none; margin: 0; scroll-snap-align: start; display: grid; gap: 12px; }
 .frame:nth-child(even) { margin-top: clamp(40px, 8vh, 90px); }
-.frame button { display: block; height: clamp(260px, 52vh, 520px); border: 0; padding: 0; overflow: hidden; cursor: zoom-in; background: var(--bg-800); position: relative; box-shadow: 10px 10px 0 rgba(var(--black-rgb), .55); }
+.frame button { display: block; height: clamp(260px, 52vh, 520px); border: 0; padding: 0; overflow: hidden; cursor: inherit; background: var(--bg-800); position: relative; box-shadow: 10px 10px 0 rgba(var(--black-rgb), .55); }
 .frame button::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 0 var(--white); transition: box-shadow .35s; }
 .frame button:hover::after { box-shadow: inset 0 0 0 4px var(--white); }
-.frame img { height: 100%; width: auto; max-width: none; transition: transform .9s cubic-bezier(.2, .8, .2, 1); }
+.frame img { height: 100%; width: auto; max-width: none; transition: transform .9s cubic-bezier(.2, .8, .2, 1); -webkit-user-drag: none; user-select: none; }
 .frame button:hover img { transform: scale(1.05); }
 .frame figcaption { display: flex; gap: 12px; align-items: baseline; font: 700 12px/1.4 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ice); max-width: 46ch; }
 .frame figcaption b { flex: none; white-space: nowrap; font: italic 900 18px/1 var(--f-display); color: var(--accent-hi); }
-@media (min-width: 901px) { .squad.is-pinned { min-height: 100vh; padding-block: 64px 40px; display: flex; flex-direction: column; justify-content: center; } .squad.is-pinned .sec-head { margin-bottom: 28px; } .squad.is-pinned .sec-title { font-size: clamp(40px, 5vw, 80px); } }
-@media (max-width: 760px) { .frame button { height: 300px; } .frame:nth-child(even) { margin-top: 36px; } }
+.reel-ctrl { display: flex; align-items: center; gap: clamp(12px, 2vw, 22px); margin-top: clamp(24px, 3vw, 40px); }
+.reel-btn { flex: none; width: 56px; height: 56px; display: grid; place-items: center; border: 2px solid rgba(var(--ice-rgb), .5); background: transparent; color: var(--white); cursor: pointer; transform: skewX(-12deg); transition: background .25s, border-color .25s, color .25s, opacity .25s; }
+.reel-btn svg { width: 20px; height: 20px; transform: skewX(12deg); }
+.reel-btn:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); }
+.reel-btn:disabled { opacity: .3; cursor: default; }
+.reel-bar { flex: 1; height: 3px; background: rgba(var(--ice-rgb), .15); position: relative; overflow: hidden; }
+.reel-bar i { position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--accent), var(--accent-hi)); }
+.reel-count { flex: none; font: italic 900 18px/1 var(--f-display); letter-spacing: .04em; color: var(--ice); min-width: 4.6em; text-align: center; }
+.reel-count b { color: var(--accent-hi); font-size: 26px; }
+.reel-hint { display: inline-flex; align-items: center; gap: 8px; font: 700 11px/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+@media (max-width: 760px) { .frame button { height: 300px; } .frame:nth-child(even) { margin-top: 36px; } .reel-btn { width: 46px; height: 46px; } .reel-hint { display: none; } }
+
+/* Highlights: looping game tape */
+.hl-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 44px); align-items: start; }
+.clip { margin: 0; display: grid; gap: 14px; }
+.clip:nth-child(2) { margin-top: clamp(40px, 10vw, 150px); }
+.clip-screen { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg-800); box-shadow: 12px 12px 0 rgba(var(--accent-rgb), .35); cursor: pointer; }
+.clip-screen video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.clip-screen::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .12) 0 1px, transparent 1px 3px), linear-gradient(180deg, transparent 60%, rgba(var(--black-rgb), .55)); }
+.clip-screen::after { content: ""; position: absolute; inset: 12px; z-index: 1; pointer-events: none; border: 2px solid rgba(255, 255, 255, .85);
+  -webkit-mask: linear-gradient(#000 0 0) top left / 28px 28px no-repeat, linear-gradient(#000 0 0) top right / 28px 28px no-repeat, linear-gradient(#000 0 0) bottom left / 28px 28px no-repeat, linear-gradient(#000 0 0) bottom right / 28px 28px no-repeat;
+          mask: linear-gradient(#000 0 0) top left / 28px 28px no-repeat, linear-gradient(#000 0 0) top right / 28px 28px no-repeat, linear-gradient(#000 0 0) bottom left / 28px 28px no-repeat, linear-gradient(#000 0 0) bottom right / 28px 28px no-repeat; }
+.clip-tag { position: absolute; z-index: 2; top: 20px; left: 52px; display: inline-flex; align-items: center; gap: 8px; font: italic 900 13px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--white); text-shadow: 0 1px 6px rgba(0, 0, 0, .6); }
+.clip-tag::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #FF3B5C; box-shadow: 0 0 10px #FF3B5C; animation: rec 1.2s steps(2, jump-none) infinite; }
+.clip.paused .clip-tag::before { animation: none; background: var(--mute); box-shadow: none; }
+@keyframes rec { 50% { opacity: .15; } }
+.clip-state { position: absolute; z-index: 2; inset: 0; margin: auto; width: 78px; height: 78px; display: grid; place-items: center; border-radius: 50%; background: rgba(var(--black-rgb), .55); border: 2px solid rgba(255, 255, 255, .8); color: var(--white); opacity: 0; transform: scale(.8); transition: opacity .3s, transform .3s; pointer-events: none; }
+.clip-state svg { width: 26px; height: 26px; margin-left: 4px; }
+.clip.paused .clip-state { opacity: 1; transform: none; }
+.clip figcaption { display: flex; gap: 14px; align-items: baseline; font: 700 12px/1.4 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ice); }
+.clip figcaption b { flex: none; font: italic 900 clamp(26px, 3vw, 40px)/1 var(--f-display); color: var(--accent-hi); }
+@media (max-width: 760px) { .hl-grid { grid-template-columns: 1fr; } .clip:nth-child(2) { margin-top: 0; } }
 
 /* Trophy cabinet */
 .cabinet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 20px; perspective: 1000px; }
@@ -369,7 +400,7 @@ dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-tran
 
 <header class="top" id="top">
   <a class="brand" href="#home"><b>RYAN <i>#7</i></b><span>Sport portfolio</span></a>
-  <nav aria-label="Sections"><a href="#stats">Stats</a><a href="#seasons">Seasons</a><a href="#squad">Squad</a><a href="#trophies">Trophies</a><a href="#roster">Roster</a><a href="#gallery">Match day</a><a href="#contact">Contact</a></nav>
+  <nav aria-label="Sections"><a href="#stats">Stats</a><a href="#highlights">Highlights</a><a href="#seasons">Seasons</a><a href="#squad">Squad</a><a href="#trophies">Trophies</a><a href="#roster">Roster</a><a href="#gallery">Match day</a><a href="#contact">Contact</a></nav>
 </header>
 
 <main>
@@ -420,6 +451,28 @@ dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-tran
   <div class="wrap"><h2 data-rise>Seven titles. <span>Earned on the pitch.</span></h2><p data-rise>No. 7 with teammates · VCP Football Championship</p></div>
 </section>
 
+<section class="sec" id="highlights">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="sec-title" data-rise>Game <em>tape</em></h2><p class="sec-note" data-rise>Class team footage, No. 7 in white. Tap a clip to pause it.</p></div>
+    <div class="hl-grid">
+      <figure class="clip" data-rise>
+        <div class="clip-screen" role="button" tabindex="0" aria-label="Pause or play clip 1">
+          <video muted loop playsinline preload="none" poster="video/hl-dribble.jpg" aria-label="No. 7 in white takes the ball past defenders"><source src="video/hl-dribble.mp4" type="video/mp4"><source src="video/hl-dribble.webm" type="video/webm"></video>
+          <span class="clip-tag">Clip 01</span><span class="clip-state"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></span>
+        </div>
+        <figcaption><b>01</b>On the ball against the purple shirts</figcaption>
+      </figure>
+      <figure class="clip" data-rise>
+        <div class="clip-screen" role="button" tabindex="0" aria-label="Pause or play clip 2">
+          <video muted loop playsinline preload="none" poster="video/hl-run.jpg" aria-label="No. 7 in white dribbles toward goal, in slow motion"><source src="video/hl-run.mp4" type="video/mp4"><source src="video/hl-run.webm" type="video/webm"></video>
+          <span class="clip-tag">Clip 02 · Slow-mo</span><span class="clip-state"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></span>
+        </div>
+        <figcaption><b>02</b>Running at the defence, slowed down</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="seasons">
   <div class="wrap">
     <div class="sec-head flip"><h2 class="sec-title" data-rise>Season <em>by season</em></h2><p class="sec-note" data-rise>Four school seasons, seven titles.</p></div>
@@ -428,8 +481,15 @@ dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-tran
 </section>
 
 <section class="sec squad stripes" id="squad">
-  <div class="wrap"><div class="sec-head"><h2 class="sec-title" data-rise>The <em>squad</em></h2><p class="sec-note" data-rise>Every title was a team effort. Scroll on, or swipe, to meet the teams.</p></div></div>
+  <div class="wrap"><div class="sec-head"><h2 class="sec-title" data-rise>The <em>squad</em></h2><p class="sec-note" data-rise>Every title was a team effort. Drag, swipe or use the arrows to meet the teams.</p></div></div>
   <div class="reel" id="reel"></div>
+  <div class="wrap reel-ctrl">
+    <button class="reel-btn" type="button" data-dir="-1" aria-label="Previous photos"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 8H3M7 4L3 8l4 4"/></svg></button>
+    <span class="reel-count" aria-live="polite"><b>01</b> / 00</span>
+    <div class="reel-bar" aria-hidden="true"><i></i></div>
+    <span class="reel-hint" aria-hidden="true">Drag</span>
+    <button class="reel-btn" type="button" data-dir="1" aria-label="Next photos"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button>
+  </div>
 </section>
 
 <section class="sec" id="trophies">
@@ -580,6 +640,72 @@ $("#chapters").innerHTML = SEASONS.map((s, i) => `<article class="chapter${i % 2
   <div class="ch-text"><span class="gr">${esc(s.label)}</span><h3>${esc(s.title)}</h3><p>${esc(s.note)}</p>
     <ul>${s.items.map(([r, t]) => `<li>${CUP}<span><b>${esc(r)}</b> · ${esc(t)}</span></li>`).join("")}</ul></div></article>`).join("");
 $("#reel").innerHTML = SQUAD.map(f => `<figure class="frame">${pic([f.src, f.cap], "")}<figcaption><b>${esc(f.tag)}</b>${esc(f.cap)}</figcaption></figure>`).join("");
+
+/* Squad reel: mouse drag with a little glide, native swipe on touch, arrow buttons, progress bar */
+(() => {
+  const reel = $("#reel"), frames = [...reel.children], bar = $(".reel-bar i"), count = $(".reel-count"), [prev, next] = document.querySelectorAll(".reel-btn");
+  const pad = n => String(n).padStart(2, "0");
+  const max = () => reel.scrollWidth - reel.clientWidth;
+  const update = () => {
+    const m = max(), p = m > 0 ? reel.scrollLeft / m : 0;
+    bar.style.transform = `scaleX(${Math.max(.04, p)})`;
+    const edge = reel.scrollLeft + reel.clientWidth * .35;
+    let i = 0; frames.forEach((f, k) => { if (f.offsetLeft <= edge) i = k; });
+    if (p > .995) i = frames.length - 1;
+    count.innerHTML = `<b>${pad(i + 1)}</b> / ${pad(frames.length)}`;
+    prev.disabled = reel.scrollLeft <= 2; next.disabled = reel.scrollLeft >= m - 2;
+  };
+  const step = dir => {
+    const x = reel.scrollLeft, gut = parseFloat(getComputedStyle(reel).paddingLeft) || 0;
+    const target = dir > 0 ? frames.find(f => f.offsetLeft - gut > x + 4) : [...frames].reverse().find(f => f.offsetLeft - gut < x - 4);
+    reel.scrollTo({ left: target ? target.offsetLeft - gut : (dir > 0 ? max() : 0), behavior: "smooth" });
+  };
+  prev.addEventListener("click", () => step(-1)); next.addEventListener("click", () => step(1));
+  reel.addEventListener("scroll", update, { passive: true }); addEventListener("resize", update); addEventListener("load", update); update();
+  reel.addEventListener("keydown", e => { if (e.key === "ArrowRight") { e.preventDefault(); step(1); } if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); } });
+  reel.addEventListener("dragstart", e => e.preventDefault());
+
+  let down = false, sx = 0, sl = 0, moved = 0, lx = 0, lt = 0, v = 0, raf = 0;
+  reel.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    down = true; moved = 0; sx = lx = e.clientX; sl = reel.scrollLeft; lt = performance.now(); v = 0; cancelAnimationFrame(raf);
+  });
+  addEventListener("pointermove", e => {
+    if (!down) return;
+    const dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx));
+    if (moved > 6) reel.classList.add("dragging");
+    reel.scrollLeft = sl - dx;
+    const t = performance.now(); if (t - lt > 0) v = (e.clientX - lx) / (t - lt); lx = e.clientX; lt = t;
+  });
+  addEventListener("pointerup", () => {
+    if (!down) return; down = false;
+    let vel = -v * 16; if (performance.now() - lt > 80) vel = 0;
+    const glide = () => {
+      if (Math.abs(vel) < .4) { reel.classList.remove("dragging"); return; }
+      reel.scrollLeft += vel; vel *= .93; raf = requestAnimationFrame(glide);
+    };
+    glide();
+  });
+  reel.addEventListener("click", e => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; } }, true);
+})();
+
+/* Highlights: clips play only while on screen; tap to pause */
+(() => {
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".clip").forEach(clip => {
+    const v = clip.querySelector("video"), screen = clip.querySelector(".clip-screen");
+    let wanted = !still, visible = false;
+    const sync = () => {
+      if (wanted && visible) { if (v.preload !== "auto") v.preload = "auto"; v.play().then(() => clip.classList.remove("paused")).catch(() => clip.classList.add("paused")); }
+      else { v.pause(); clip.classList.add("paused"); }
+    };
+    const toggle = () => { wanted = !wanted; sync(); };
+    screen.addEventListener("click", toggle);
+    screen.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+    if ("IntersectionObserver" in window) new IntersectionObserver(([en]) => { visible = en.isIntersecting; sync(); }, { threshold: .35 }).observe(screen);
+    else { visible = true; sync(); }
+  });
+})();
 $("#cabinet").innerHTML = TROPHIES.map(t => `<article class="trophy" tabindex="0">${TROPHY}<span class="tag">${esc(t.tag)}</span><h3>${esc(t.name)}</h3><p>${esc(t.detail)}</p><span class="res">${esc(t.res)}</span></article>`).join("");
 if (GALLERY.length) {
   $("#gallery").hidden = false;
@@ -679,20 +805,11 @@ else {
     gsap.to(o, { v: end, duration: 1.6, ease: "power2.out", onUpdate: () => el.textContent = Math.round(o.v), scrollTrigger: { trigger: el, start: "top 85%" } });
   });
 
-  /* Squad reel: pinned and driven sideways by scroll on wide screens; native swipe on phones */
-  ScrollTrigger.matchMedia({
-    "(min-width: 901px)": () => {
-      const reel = $("#reel"), squad = $("#squad");
-      reel.classList.add("pinned"); squad.classList.add("is-pinned");
-      const dist = () => reel.scrollWidth - innerWidth + 40;
-      const tw = gsap.to(reel, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: squad, start: "top top", end: () => "+=" + dist(), pin: true, scrub: .6, invalidateOnRefresh: true } });
-      gsap.utils.toArray(".frame img").forEach(img => gsap.fromTo(img, { xPercent: -6 }, { xPercent: 6, ease: "none", scrollTrigger: { trigger: img.closest(".frame"), containerAnimation: tw, start: "left right", end: "right left", scrub: true } }));
-      return () => { reel.classList.remove("pinned"); squad.classList.remove("is-pinned"); };
-    },
-    "(max-width: 900px)": () => {
-      gsap.from(".frame", { x: 120, opacity: 0, duration: 1, stagger: .1, ease: "power3.out", scrollTrigger: { trigger: "#reel", start: "top 85%" } });
-    }
-  });
+  /* Squad reel: frames slide in once */
+  gsap.from(".frame", { x: 120, opacity: 0, duration: 1, stagger: .08, ease: "power3.out", scrollTrigger: { trigger: "#reel", start: "top 85%" } });
+
+  /* Highlights: screens punch in */
+  gsap.from(".clip-screen", { clipPath: "inset(0 100% 0 0)", duration: 1.2, stagger: .15, ease: "power4.inOut", clearProps: "clipPath", scrollTrigger: { trigger: ".hl-grid", start: "top 80%" } });
 
   /* Final whistle */
   gsap.from(".final .big", { scale: .85, opacity: 0, duration: 1.2, ease: "power4.out", scrollTrigger: { trigger: ".final", start: "top 75%" } });
