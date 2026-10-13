@@ -338,6 +338,7 @@ h1, h2, h3, p { margin: 0; }
   .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; grid-auto-flow: dense; gap: 8px; }
   .shot { grid-column: span 2 !important; grid-row: auto !important; aspect-ratio: 3 / 2; }
   .shot.tall { grid-column: span 1 !important; aspect-ratio: 2 / 3; }
+  .shot.tall.solo { grid-column: span 2 !important; aspect-ratio: 4 / 5; }
   .shot figcaption { transform: none; font-size: 10px; padding: 24px 10px 8px; }
 }
 
@@ -618,14 +619,14 @@ const GALLERY = [
   { src: "img/g10-goal.webp", cap: "Goal celebration · 2024–25", span: 6, rows: 3 },
   { src: "img/g10-duel.webp", cap: "One-on-one duel · 2024–25", span: 4, rows: 2 },
   { src: "img/g10-dribbling-3.webp", cap: "Dribbling past defenders · 2024–25", span: 4, rows: 2 },
-  { src: "img/g10-defending.webp", cap: "Tracking back to defend · 2024–25", span: 4, rows: 2 },
+  { src: "img/g10-defending.webp", cap: "Celebrating with teammates · 2024–25", span: 4, rows: 2 },
   { src: "img/g10-huddle.webp", cap: "Team huddle before kick-off · 2024–25", span: 3, rows: 4, tall: true },
   { src: "img/sf-celebrate.webp", cap: "Celebrating the win · SportsFest 2025", span: 5, rows: 4 },
   { src: "img/g11-huddle.webp", cap: "Team huddle on the pitch · 2025–26", span: 4, rows: 4 },
   { src: "img/sf-board.webp", cap: "First Prize, Series B · SportsFest 2025", span: 6, rows: 3 },
-  { src: "img/v10-final-1.webp", cap: "On the pitch in the Vin10 Cup final · March 2024", span: 6, rows: 3 },
-  { src: "img/v10-talk.webp", cap: "Talking tactics before the Vin10 final", span: 6, rows: 3 },
-  { src: "img/v10-huddle.webp", cap: "Team huddle during the Vin10 Cup", span: 6, rows: 3 }
+  { src: "img/g10-challenge.webp", cap: "No. 7 in open play · 2024–25", span: 6, rows: 3 },
+  { src: "img/g10-support.webp", cap: "No. 7 supporting the play · 2024–25", span: 8, rows: 4 },
+  { src: "img/g10-no7-back.webp", cap: "No. 7 on the pitch · 2024–25", span: 4, rows: 4, tall: true, solo: true }
 ];
 
 const $ = s => document.querySelector(s);
@@ -709,7 +710,7 @@ $("#reel").innerHTML = SQUAD.map(f => `<figure class="frame">${pic([f.src, f.cap
 $("#cabinet").innerHTML = TROPHIES.map(t => `<article class="trophy" tabindex="0">${TROPHY}<span class="tag">${esc(t.tag)}</span><h3>${esc(t.name)}</h3><p>${esc(t.detail)}</p><span class="res">${esc(t.res)}</span></article>`).join("");
 if (GALLERY.length) {
   $("#gallery").hidden = false;
-  $("#galleryGrid").innerHTML = GALLERY.map(g => `<button class="shot${g.tall ? " tall" : ""}" style="grid-column:span ${g.span || 4};grid-row:span ${g.rows || 2}" data-src="${esc(g.src)}" data-cap="${esc(g.cap)}"><img src="${esc(g.src)}" alt="${esc(g.cap)}" loading="lazy"><figcaption>${esc(g.cap)}</figcaption></button>`).join("");
+  $("#galleryGrid").innerHTML = GALLERY.map(g => `<button class="shot${g.tall ? " tall" : ""}${g.solo ? " solo" : ""}" style="grid-column:span ${g.span || 4};grid-row:span ${g.rows || 2}" data-src="${esc(g.src)}" data-cap="${esc(g.cap)}"><img src="${esc(g.src)}" alt="${esc(g.cap)}" loading="lazy"><figcaption>${esc(g.cap)}</figcaption></button>`).join("");
 }
 
 /* Lightbox, copy, top bar */
