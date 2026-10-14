@@ -255,7 +255,7 @@ h1, h2, h3, p { margin: 0; }
 /* Full highlight reel */
 .film { margin: 0 0 clamp(36px, 5vw, 64px); display: grid; gap: 14px; }
 .film-screen { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #000; box-shadow: 14px 14px 0 rgba(var(--accent-rgb), .35); }
-.film-screen video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
+.film-poster, .film-screen iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; object-fit: cover; }
 .film-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 20px; border: 0; cursor: pointer; color: #fff; background: radial-gradient(70% 70% at 50% 50%, rgba(var(--black-rgb), .15), rgba(var(--black-rgb), .7)); transition: opacity .4s; }
 .film-btn { width: clamp(70px, 9vw, 110px); aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 10px rgba(var(--accent-rgb), .3), 0 0 50px rgba(var(--accent-hi-rgb), .8); transition: transform .35s cubic-bezier(.2, .8, .2, 1); }
 .film-btn svg { width: 38%; margin-left: 6%; }
@@ -506,10 +506,10 @@ dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-tran
     <div class="sec-head"><h2 class="sec-title" data-rise>Game <em>tape</em></h2><p class="sec-note" data-rise>The full highlight reel, then two short clips of No. 7 in white. Tap a clip to pause it.</p></div>
     <figure class="film" data-rise>
       <div class="film-screen">
-        <video playsinline preload="none" poster="video/highlight-reel.jpg" aria-label="Football highlight reel of Nguyen Duc Toan, 4 minutes 24 seconds"><source src="video/highlight-reel.mp4" type="video/mp4"></video>
-        <button class="film-play" type="button" aria-label="Play the highlight reel with sound"><span class="film-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></span><span class="film-label"><b>Play highlights</b><small>4:24 · sound on</small></span></button>
+        <img class="film-poster" src="video/highlight-reel.jpg" alt="" loading="lazy">
+        <button class="film-play" type="button" data-drive="1QLgLOsBNeAsg5P5Ri_PMfk6NP6QP7Np0" aria-label="Open the Sports Week highlight reel player"><span class="film-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></span><span class="film-label"><b>Play highlights</b><small>Full HD · sound on</small></span></button>
       </div>
-      <figcaption><b>Reel</b>Highlight reel · 4 min 24 s</figcaption>
+      <figcaption><b>Reel</b>Sports Week highlights · full quality, sound on</figcaption>
     </figure>
     <div class="hl-grid">
       <figure class="clip" data-rise>
@@ -766,15 +766,16 @@ $("#reel").innerHTML = SQUAD.map(f => `<figure class="frame">${pic([f.src, f.cap
   reel.addEventListener("click", e => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; } }, true);
 })();
 
-/* Full highlight reel: starts with sound on a tap, then hands over to the native controls */
+/* Full highlight reel: streamed from Google Drive in full quality; the player loads only on tap */
 (() => {
-  const film = $(".film"), v = film.querySelector("video"), btn = film.querySelector(".film-play");
+  const film = $(".film"), btn = film.querySelector(".film-play");
   btn.addEventListener("click", () => {
-    film.classList.add("playing"); v.controls = true; v.preload = "auto";
+    const f = document.createElement("iframe");
+    f.src = `https://drive.google.com/file/d/${btn.dataset.drive}/preview`;
+    f.allow = "autoplay; fullscreen; picture-in-picture"; f.allowFullscreen = true; f.title = "Sports Week highlight reel";
+    film.querySelector(".film-screen").appendChild(f); film.classList.add("playing");
     document.querySelectorAll(".clip video").forEach(c => c.pause());
-    v.play().catch(() => film.classList.remove("playing"));
-  });
-  v.addEventListener("ended", () => { film.classList.remove("playing"); v.controls = false; v.load(); });
+  }, { once: true });
 })();
 
 /* Highlights: clips play only while on screen; tap to pause */
