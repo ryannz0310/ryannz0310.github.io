@@ -582,7 +582,7 @@ dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-tran
 
 <section class="sec stripes" id="shoot">
   <div class="wrap">
-    <div class="sec-head"><h2 class="sec-title" data-rise>Take the <em>shot</em></h2><p class="sec-note" data-rise>Pick a shot, aim anywhere at the goal, then tap to shoot. The keeper will try to read it.</p></div>
+    <div class="sec-head"><h2 class="sec-title" data-rise>Take the <em>shot</em></h2><p class="sec-note" data-rise>Pick a shot, aim, tap to shoot. The keeper reads your run-up, learns your favourite corner and gets sharper with every goal.</p></div>
     <div class="shoot-ui">
       <div class="shot-types" role="group" aria-label="Shot type">
         <button class="shot-type" type="button" data-type="finesse" aria-pressed="true"><span>Finesse</span><small>Curls in</small></button>
@@ -820,7 +820,7 @@ function startShoot2D() {
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const ease = t => 1 - Math.pow(1 - t, 3);
   let W = 0, H = 0, F = 1, HY = 0, dpr = 1, crowd = null;
-  let type = "finesse", aim = null, shot = null, goals = 0, shots = 0, now = 0, last = 0, running = false, visible = false, demoDone = false;
+  let type = "finesse", aim = null, shot = null, goals = 0, shots = 0, now = 0, last = 0, running = false, visible = false, demoDone = false; const memory = [];
   let ball = { x: 0, y: BR, z: 0, ax: 0, ay: 0, pop: 1 }, trail = [], ripples = [], bits = [], flashes = [], bursts = [], shake = 0, board = 0;
   const keeper = { fx: 0, h: 0, th: 0, side: 1, d: 0, from: null, to: null, t0: 0 };
 
@@ -866,15 +866,22 @@ function startShoot2D() {
   const shoot = (tx, ty, demo) => {
     if (shot) return;
     if (!demo) { shots++; box.classList.add("played"); }
+    // No strike is perfect: harder shots stray further from the aim point
+    if (!demo) { const err = { finesse: .16, power: .26, chip: .2, trivela: .22 }[type]; tx += (Math.random() + Math.random() - 1) * err; ty = Math.max(.12, ty + (Math.random() + Math.random() - 1) * err * .8); }
     const inGoal = Math.abs(tx) < GW / 2 - BR * .6 && ty < GH - BR * .6;
     const post = !inGoal && ((Math.abs(Math.abs(tx) - GW / 2) < .22 && ty < GH + .15) || (Math.abs(ty - GH) < .22 && Math.abs(tx) < GW / 2 + .15));
-    const corner = Math.abs(tx) > 1.65 && ty > 1.4;
-    const readIt = Math.random() < (type === "power" ? .2 : type === "chip" ? .12 : .28);
-    const save = !demo && inGoal && readIt && !corner && !(type === "chip" && Math.abs(tx) < 1.1);
+    // The keeper reads it: near him is easy, corners are hard, and he learns your favourite side and sharpens as you score
+    const side = Math.abs(tx) < .4 ? 0 : Math.sign(tx), repeat = demo ? 0 : memory.filter(m => m === side).length;
+    if (!demo) { memory.push(side); if (memory.length > 4) memory.shift(); }
+    const dist = Math.hypot(tx / (GW / 2), (ty - 1) / 1.2);
+    let chance = { finesse: .52, power: .44, chip: .42, trivela: .48 }[type] * clamp(1.25 - dist * .62, .12, 1) + repeat * .12 + Math.min(.15, goals * .025);
+    if (type === "chip" && Math.abs(tx) < 1.1 && ty > .9) chance *= .35;
+    const save = !demo && inGoal && Math.random() < Math.min(.85, chance);
     const outcome = save ? "save" : inGoal ? "goal" : post ? "post" : "miss";
     const wrong = Math.abs(tx) > .35 ? -Math.sign(tx) : (Math.random() < .5 ? -1 : 1);
-    const dive = save ? reachPose(tx, ty) : reachPose(wrong * (1.5 + Math.random() * .6), .7 + Math.random() * .7);
-    Object.assign(keeper, { from: { fx: keeper.fx, h: 0, th: 0 }, to: dive, side: dive.side, t0: now + (type === "power" ? .08 : .16), d: 0 });
+    const close = !save && side && Math.random() < .45; // guessed right, fingertips short
+    const dive = save ? reachPose(tx, ty) : close ? reachPose(tx - side * .6, Math.max(.4, ty - .3)) : reachPose(wrong * (1.5 + Math.random() * .6), .7 + Math.random() * .7);
+    Object.assign(keeper, { from: { fx: keeper.fx, h: 0, th: 0 }, to: dive, side: dive.side, t0: now + (type === "power" ? .05 : .1), d: 0 });
     const k = TYPES[type];
     shot = { type, tx, ty, outcome, demo, t0: now, T: k.T, phase: "fly", vx: 0, vy: 0, vz: 0, end: 0 };
     ball.ax = ball.ay = 0; trail = [];
@@ -903,7 +910,7 @@ function startShoot2D() {
 
   const step = dt => {
     if (!shot) {
-      keeper.fx += (Math.sin(now * 1.7) * .3 - keeper.fx) * Math.min(1, dt * 3);
+      keeper.fx += (Math.sin(now * 1.7) * .22 + (aim ? clamp(aim.x, -2.5, 2.5) * .14 : 0) - keeper.fx) * Math.min(1, dt * 3);
       keeper.th += (0 - keeper.th) * Math.min(1, dt * 6); keeper.h += (0 - keeper.h) * Math.min(1, dt * 6);
       ball.pop = Math.min(1, ball.pop + dt * 3);
       return;

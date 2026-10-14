@@ -236,7 +236,7 @@ export function startShoot3D(box) {
   const spray = new THREE.Points(spGeo, new THREE.PointsMaterial({ color: 0x7fd49a, size: .05, transparent: true, opacity: .9 })); spray.visible = false; scene.add(spray);
 
   /* ---------- game state ---------- */
-  let type = "finesse", shot = null, goals = 0, shots = 0, timeScale = 1, aim = null, demoDone = false, visible = false, running = false;
+  let type = "finesse", shot = null, goals = 0, shots = 0, timeScale = 1, aim = null, demoDone = false, visible = false, running = false; const memory = [];
   let simT = 0, realT = 0, shake = 0, camMode = "home", camT = 0, impact = new THREE.Vector3(0, 1, GZ - ND), replaySide = 1, crowdJump = -9;
   const camPos = new THREE.Vector3(), camLook = new THREE.Vector3(), wantPos = new THREE.Vector3(), wantLook = new THREE.Vector3();
   let homePos = new THREE.Vector3(0, 1.3, 4.4), homeLook = new THREE.Vector3(0, .95, GZ), baseFov = 42;
@@ -252,15 +252,22 @@ export function startShoot3D(box) {
   const shoot = (tx, ty, demo) => {
     if (shot) return;
     if (!demo) { shots++; box.classList.add("played"); }
+    // No strike is perfect: harder shots stray further from the aim point
+    if (!demo) { const err = { finesse: .16, power: .26, chip: .2, trivela: .22 }[type]; tx += (Math.random() + Math.random() - 1) * err; ty = Math.max(.12, ty + (Math.random() + Math.random() - 1) * err * .8); }
     const inGoal = Math.abs(tx) < GW / 2 - BR * .6 && ty < GH - BR * .6;
     const post = !inGoal && ((Math.abs(Math.abs(tx) - GW / 2) < .22 && ty < GH + .15) || (Math.abs(ty - GH) < .22 && Math.abs(tx) < GW / 2 + .15));
-    const corner = Math.abs(tx) > 1.65 && ty > 1.4;
-    const readIt = Math.random() < (type === "power" ? .2 : type === "chip" ? .12 : .28);
-    const save = !demo && inGoal && readIt && !corner && !(type === "chip" && Math.abs(tx) < 1.1);
+    // The keeper reads it: near him is easy, corners are hard, and he learns your favourite side and sharpens as you score
+    const side = Math.abs(tx) < .4 ? 0 : Math.sign(tx), repeat = demo ? 0 : memory.filter(m => m === side).length;
+    if (!demo) { memory.push(side); if (memory.length > 4) memory.shift(); }
+    const dist = Math.hypot(tx / (GW / 2), (ty - 1) / 1.2);
+    let chance = { finesse: .52, power: .44, chip: .42, trivela: .48 }[type] * clamp(1.25 - dist * .62, .12, 1) + repeat * .12 + Math.min(.15, goals * .025);
+    if (type === "chip" && Math.abs(tx) < 1.1 && ty > .9) chance *= .35;
+    const save = !demo && inGoal && Math.random() < Math.min(.85, chance);
     const outcome = save ? "save" : inGoal ? "goal" : post ? "post" : "miss";
     const wrong = Math.abs(tx) > .35 ? -Math.sign(tx) : (Math.random() < .5 ? -1 : 1);
-    const dive = save ? reachPose(tx, ty) : reachPose(wrong * (1.5 + Math.random() * .6), .7 + Math.random() * .7);
-    Object.assign(kState, { from: { fx: kState.fx }, to: dive, side: dive.side, t0: simT + (type === "power" ? .08 : .17), d: 0 });
+    const close = !save && side && Math.random() < .45; // guessed right, fingertips short
+    const dive = save ? reachPose(tx, ty) : close ? reachPose(tx - side * .6, Math.max(.4, ty - .3)) : reachPose(wrong * (1.5 + Math.random() * .6), .7 + Math.random() * .7);
+    Object.assign(kState, { from: { fx: kState.fx }, to: dive, side: dive.side, t0: simT + (type === "power" ? .05 : .1), d: 0 });
     shot = { type, tx, ty, outcome, demo, t0: simT, T: TYPES[type].T, phase: "fly", end: 0, slow: false };
     spin.set(...TYPES[type].spin); if (type !== "power" && type !== "chip") spin.y *= Math.sign(tx || 1);
     trailHist.length = 0; ret.visible = dots.visible = false; camMode = "follow";
@@ -320,7 +327,7 @@ export function startShoot3D(box) {
       kState.fx = kState.from.fx + (t.fx - kState.from.fx) * e; kState.th = t.th * e; kState.side = t.side;
       kState.h = t.h * Math.sin(kState.d * Math.PI * .5) * (el > shot.T + .35 ? Math.max(0, 1 - (el - shot.T - .35) * 3) : 1);
     } else {
-      kState.fx += (Math.sin(simT * 1.7) * .3 - kState.fx) * Math.min(1, dt * 3);
+      kState.fx += (Math.sin(simT * 1.7) * .22 + (aim ? clamp(aim.x, -2.5, 2.5) * .14 : 0) - kState.fx) * Math.min(1, dt * 3);
       kState.th += -kState.th * Math.min(1, dt * 6); kState.h += -kState.h * Math.min(1, dt * 6);
     }
     keeper.position.set(kState.fx, kState.h, KZ); keeper.rotation.z = -kState.side * kState.th;
