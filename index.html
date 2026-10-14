@@ -273,6 +273,35 @@ h1, h2, h3, p { margin: 0; }
 .clip figcaption b { flex: none; font: italic 900 clamp(26px, 3vw, 40px)/1 var(--f-display); color: var(--accent-hi); }
 @media (max-width: 760px) { .hl-grid { grid-template-columns: 1fr; } .clip:nth-child(2) { margin-top: 0; } }
 
+/* Scroll progress: a ball rolls along the top edge toward a little goal */
+.kickbar { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60; pointer-events: none; background: rgba(var(--ice-rgb), .08); }
+.kickbar i { position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--accent), var(--accent-hi)); box-shadow: 0 0 10px rgba(var(--accent-hi-rgb), .8); }
+.kickbar svg.kb-ball { position: absolute; top: -6px; left: 0; width: 15px; height: 15px; will-change: transform; filter: drop-shadow(0 0 6px rgba(var(--accent-hi-rgb), .9)); }
+.kickbar .kb-goal { position: absolute; right: 2px; top: 0; width: 14px; height: 12px; border: 2px solid rgba(255, 255, 255, .75); border-top: 0; border-radius: 0 0 2px 2px; background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .25) 0 1px, transparent 1px 4px), repeating-linear-gradient(0deg, rgba(255, 255, 255, .25) 0 1px, transparent 1px 4px); transition: box-shadow .3s, border-color .3s; }
+.kickbar.scored .kb-goal { border-color: var(--accent-hi); box-shadow: 0 0 14px var(--accent-hi); }
+
+/* Take the shot: a little penalty game */
+.shoot-ui { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; margin-bottom: 18px; }
+.shot-types { display: flex; flex-wrap: wrap; gap: 10px; }
+.shot-type { padding: 12px 18px; border: 2px solid rgba(var(--ice-rgb), .4); background: transparent; color: var(--ice); font: italic 900 13px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transform: skewX(-10deg); transition: background .25s, border-color .25s, color .25s; }
+.shot-type span { display: inline-block; transform: skewX(10deg); }
+.shot-type small { display: block; margin-top: 5px; font: 700 10px/1 var(--f-body); letter-spacing: .12em; color: var(--mute); transform: skewX(10deg); }
+.shot-type:hover { border-color: var(--accent-hi); }
+.shot-type[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.shot-type[aria-pressed="true"] small { color: rgba(255, 255, 255, .75); }
+.scoreline { display: flex; align-items: baseline; gap: 18px; font: italic 900 14px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.scoreline b { font-size: clamp(34px, 4vw, 52px); color: var(--white); letter-spacing: 0; margin-right: 6px; }
+.scoreline .g b { color: var(--accent-hi); text-shadow: 0 0 18px rgba(var(--accent-hi-rgb), .6); }
+.pitch { position: relative; height: clamp(380px, 62vh, 620px); overflow: hidden; background: #07040d; box-shadow: 12px 12px 0 rgba(var(--accent-rgb), .3); cursor: crosshair; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.pitch canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.pitch-call { position: absolute; left: 0; right: 0; top: 30%; text-align: center; pointer-events: none; font: italic 900 clamp(64px, 13vw, 170px)/.9 var(--f-display); text-transform: uppercase; letter-spacing: -.02em; color: #fff; opacity: 0; text-shadow: 0 0 6px rgba(255, 255, 255, .8), 0 0 30px rgba(var(--accent-hi-rgb), .95), 0 0 70px rgba(var(--accent-rgb), .9); }
+.pitch-call.miss { color: var(--ice); text-shadow: 0 0 24px rgba(0, 0, 0, .8); font-size: clamp(44px, 8vw, 110px); }
+.pitch-call.show { animation: call 1.5s cubic-bezier(.2, .8, .2, 1) forwards; }
+@keyframes call { 0% { opacity: 0; transform: scale(2.2) skewX(-12deg); filter: blur(10px); } 14% { opacity: 1; transform: scale(.94) skewX(-12deg); filter: none; } 22% { transform: scale(1.04) skewX(-12deg); } 75% { opacity: 1; transform: scale(1) skewX(-12deg); } 100% { opacity: 0; transform: scale(1.1) skewX(-12deg) translateY(-20px); } }
+.pitch-hint { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); pointer-events: none; font: 700 11px/1 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: rgba(var(--ice-rgb), .7); white-space: nowrap; transition: opacity .4s; }
+.pitch.played .pitch-hint { opacity: 0; }
+@media (max-width: 760px) { .pitch { height: auto; aspect-ratio: 4 / 5; } .shot-type { padding: 10px 13px; } }
+
 /* Trophy cabinet */
 .cabinet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 20px; perspective: 1000px; }
 .trophy { position: relative; padding: 30px 26px 28px; background: var(--pattern), linear-gradient(165deg, var(--card-1), var(--card-2) 75%); border: 1px solid var(--line); transform-style: preserve-3d; transition: transform .25s ease, border-color .3s; will-change: transform; overflow: hidden; }
@@ -403,6 +432,7 @@ dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-tran
   <a class="brand" href="#home"><b>RYAN <i>#7</i></b><span>Sport portfolio</span></a>
   <nav aria-label="Sections"><a href="#stats">Stats</a><a href="#highlights">Highlights</a><a href="#seasons">Seasons</a><a href="#squad">Squad</a><a href="#trophies">Trophies</a><a href="#roster">Roster</a><a href="#gallery">Match day</a><a href="#contact">Contact</a></nav>
 </header>
+<div class="kickbar" aria-hidden="true"><i></i><svg class="kb-ball" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9.2" fill="#fff" stroke="#1a1026" stroke-width="1"/><path d="M10 6.2l3.6 2.6-1.4 4.2H7.8L6.4 8.8z" fill="#1a1026"/><path d="M10 6.2V1.2M13.6 8.8l4.6-1.6M12.2 13l2.8 4M7.8 13L5 17M6.4 8.8L1.8 7.2" stroke="#1a1026" stroke-width="1"/></svg><span class="kb-goal"></span></div>
 
 <main>
 <section class="hero" id="home">
@@ -543,6 +573,26 @@ dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-tran
         <li><span class="medal s">2</span><div><b>Silver medal · City Basketball Tournament</b><span>Grade 4 · 2018–19</span></div></li>
         <li><span class="medal b">3</span><div><b>Bronze medal · Phu Dong Games, district level</b><span>Grade 5 · 2019–20</span></div></li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec stripes" id="shoot">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="sec-title" data-rise>Take the <em>shot</em></h2><p class="sec-note" data-rise>Pick a shot, aim anywhere at the goal, then tap to shoot. The keeper will try to read it.</p></div>
+    <div class="shoot-ui">
+      <div class="shot-types" role="group" aria-label="Shot type">
+        <button class="shot-type" type="button" data-type="finesse" aria-pressed="true"><span>Finesse</span><small>Curls in</small></button>
+        <button class="shot-type" type="button" data-type="power" aria-pressed="false"><span>Power</span><small>Low &amp; hard</small></button>
+        <button class="shot-type" type="button" data-type="chip" aria-pressed="false"><span>Chip</span><small>Over the top</small></button>
+        <button class="shot-type" type="button" data-type="trivela" aria-pressed="false"><span>Trivela</span><small>Outside foot</small></button>
+      </div>
+      <p class="scoreline" aria-live="polite"><span class="g"><b id="goalCount">0</b>Goals</span><span><b id="shotCount">0</b>Shots</span></p>
+    </div>
+    <div class="pitch" id="pitch" role="button" tabindex="0" aria-label="Penalty game. Click or tap where you want to shoot, or press Enter for a random shot.">
+      <canvas id="pitchCanvas"></canvas>
+      <p class="pitch-call" id="pitchCall" aria-live="assertive"></p>
+      <p class="pitch-hint">Aim at the goal · tap to shoot</p>
     </div>
   </div>
 </section>
@@ -735,6 +785,337 @@ document.querySelectorAll(".trophy").forEach(card => {
   });
   card.addEventListener("pointerleave", () => card.style.transform = "");
 });
+
+/* Scroll progress: the ball rolls along the top edge and finds the little goal at the end */
+(() => {
+  const bar = $(".kickbar"), fill = bar.querySelector("i"), ball = bar.querySelector(".kb-ball");
+  let ticking = false;
+  const draw = () => {
+    ticking = false;
+    const max = document.documentElement.scrollHeight - innerHeight, p = max > 0 ? Math.min(1, scrollY / max) : 0;
+    const run = innerWidth - 34, x = p * run;
+    fill.style.transform = `scaleX(${p})`;
+    ball.style.transform = `translateX(${x}px) rotate(${x / 7.5}rad)`;
+    bar.classList.toggle("scored", p > .995);
+  };
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(draw); } }, { passive: true });
+  addEventListener("resize", draw); draw();
+})();
+
+/* Take the shot: a small penalty game drawn on canvas, in a simple 3D perspective (metres) */
+(() => {
+  const box = $("#pitch"), cv = $("#pitchCanvas"), ctx = cv.getContext("2d"), call = $("#pitchCall");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const GW = 5, GH = 2.2, GZ = 8, ND = 1.3, CAMZ = -5, CAMH = 1.35, BR = .17, KZ = GZ - .4;
+  const C = { accent: "#7C3AED", hi: "#B47CFF", ice: "#EADCFF", white: "#F6F2FC" };
+  const TYPES = {
+    finesse: { T: .95, curve: .95, arc: .5, spinX: 6, spinY: 26 },
+    power:   { T: .42, curve: 0, arc: .1, spinX: 34, spinY: 0 },
+    chip:    { T: 1.35, curve: 0, arc: 2.2, spinX: -8, spinY: 0 },
+    trivela: { T: .85, curve: -1.05, arc: .35, spinX: 4, spinY: -28 }
+  };
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  let W = 0, H = 0, F = 1, HY = 0, dpr = 1, crowd = null;
+  let type = "finesse", aim = null, shot = null, goals = 0, shots = 0, now = 0, last = 0, running = false, visible = false, demoDone = false;
+  let ball = { x: 0, y: BR, z: 0, ax: 0, ay: 0, pop: 1 }, trail = [], ripples = [], bits = [], flashes = [], bursts = [], shake = 0, board = 0;
+  const keeper = { fx: 0, h: 0, th: 0, side: 1, d: 0, from: null, to: null, t0: 0 };
+
+  const P = (x, y, z) => { const s = F / (z - CAMZ); return [W / 2 + x * s, HY + (CAMH - y) * s, s]; };
+  const resize = () => {
+    const r = box.getBoundingClientRect(); dpr = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    F = Math.min(2.25 * H, .8 * W * (GZ - CAMZ) / GW);
+    HY = .9 * H - CAMH * F / -CAMZ;
+    crowd = document.createElement("canvas"); crowd.width = cv.width; crowd.height = cv.height;
+    const g = crowd.getContext("2d"), top = P(0, 4.2, GZ + 3)[1] * dpr, bot = P(0, 0, GZ + 3)[1] * dpr;
+    for (let i = 0; i < W * 2.2; i++) {
+      const x = Math.random() * crowd.width, y = top + Math.random() * (bot - top) * .78;
+      g.fillStyle = `rgba(${150 + Math.random() * 90 | 0}, ${120 + Math.random() * 80 | 0}, ${190 + Math.random() * 60 | 0}, ${.08 + Math.random() * .22})`;
+      g.beginPath(); g.arc(x, y, (1 + Math.random() * 1.6) * dpr, 0, 7); g.fill();
+    }
+    if (!running) frame(performance.now());
+  };
+
+  /* Flight path for each shot type: t = 0 on the spot, t = 1 at the goal line */
+  const path = (tp, tx, ty, t) => {
+    const k = TYPES[tp], side = Math.abs(tx) < .15 ? 1 : Math.sign(tx);
+    return {
+      x: tx * t + k.curve * side * Math.sin(Math.PI * t) * (1 - .3 * t),
+      y: BR + (ty - BR) * t + k.arc * Math.sin(Math.PI * t),
+      z: GZ * (t * (1.12 - .12 * t))
+    };
+  };
+
+  /* Keeper pose: feet x, lift h, lean angle th (0 = upright), reaching hands toward a point */
+  const reachPose = (tx, ty) => {
+    const L = 2.05, side = tx >= 0 ? 1 : -1;
+    const th = clamp(Math.acos(clamp((ty - .1) / L, -1, 1)), .35, 1.42);
+    return { fx: clamp(tx - side * L * Math.sin(th), -1.6, 1.6), h: Math.max(0, ty - L * Math.cos(th)) * .8, th, side };
+  };
+
+  const setCall = (text, miss) => {
+    call.textContent = text; call.className = "pitch-call"; void call.offsetWidth;
+    call.className = "pitch-call show" + (miss ? " miss" : "");
+  };
+  const count = () => { $("#goalCount").textContent = goals; $("#shotCount").textContent = shots; };
+
+  const shoot = (tx, ty, demo) => {
+    if (shot) return;
+    if (!demo) { shots++; box.classList.add("played"); }
+    const inGoal = Math.abs(tx) < GW / 2 - BR * .6 && ty < GH - BR * .6;
+    const post = !inGoal && ((Math.abs(Math.abs(tx) - GW / 2) < .22 && ty < GH + .15) || (Math.abs(ty - GH) < .22 && Math.abs(tx) < GW / 2 + .15));
+    const corner = Math.abs(tx) > 1.65 && ty > 1.4;
+    const readIt = Math.random() < (type === "power" ? .2 : type === "chip" ? .12 : .28);
+    const save = !demo && inGoal && readIt && !corner && !(type === "chip" && Math.abs(tx) < 1.1);
+    const outcome = save ? "save" : inGoal ? "goal" : post ? "post" : "miss";
+    const wrong = Math.abs(tx) > .35 ? -Math.sign(tx) : (Math.random() < .5 ? -1 : 1);
+    const dive = save ? reachPose(tx, ty) : reachPose(wrong * (1.5 + Math.random() * .6), .7 + Math.random() * .7);
+    Object.assign(keeper, { from: { fx: keeper.fx, h: 0, th: 0 }, to: dive, side: dive.side, t0: now + (type === "power" ? .08 : .16), d: 0 });
+    const k = TYPES[type];
+    shot = { type, tx, ty, outcome, demo, t0: now, T: k.T, phase: "fly", vx: 0, vy: 0, vz: 0, end: 0 };
+    ball.ax = ball.ay = 0; trail = [];
+    bursts.push({ x: 0, y: BR, z: 0, t0: now });
+    if (!running) loop();
+  };
+
+  const afterLine = s => {
+    const p = path(s.type, s.tx, s.ty, 1), q = path(s.type, s.tx, s.ty, .97), dt = s.T * .03;
+    s.vx = (p.x - q.x) / dt; s.vy = (p.y - q.y) / dt; s.vz = (p.z - q.z) / dt;
+  };
+
+  const celebrate = s => {
+    if (s.outcome === "goal") {
+      if (!s.demo) goals++;
+      setCall("Goal!"); board = now; shake = still ? 0 : 14;
+      ripples.push({ x: ball.x, y: ball.y, t0: now, a: s.type === "power" ? .75 : .5 });
+      const [gx, gy] = P(0, GH, GZ);
+      for (let i = 0; i < (still ? 0 : 110); i++) bits.push({ x: gx + (Math.random() - .5) * W * .5, y: gy - 10, vx: (Math.random() - .5) * 520, vy: -180 - Math.random() * 520, r: Math.random() * 6.3, vr: (Math.random() - .5) * 14, c: [C.accent, C.hi, C.white, C.ice][i % 4], w: 5 + Math.random() * 6, t0: now });
+      for (let i = 0; i < 26; i++) flashes.push({ x: Math.random(), y: Math.random(), t0: now + Math.random() * 1.2 });
+    } else if (s.outcome === "save") { setCall("Saved!", true); shake = still ? 0 : 5; }
+    else if (s.outcome === "post") { setCall("Off the post!", true); shake = still ? 0 : 7; }
+    else setCall(s.ty > GH ? "Over the bar!" : "Wide!", true);
+    count();
+  };
+
+  const step = dt => {
+    if (!shot) {
+      keeper.fx += (Math.sin(now * 1.7) * .3 - keeper.fx) * Math.min(1, dt * 3);
+      keeper.th += (0 - keeper.th) * Math.min(1, dt * 6); keeper.h += (0 - keeper.h) * Math.min(1, dt * 6);
+      ball.pop = Math.min(1, ball.pop + dt * 3);
+      return;
+    }
+    const s = shot, el = now - s.t0;
+    // keeper dive
+    if (now > keeper.t0 && keeper.d < 1) keeper.d = Math.min(1, (now - keeper.t0) / .42);
+    if (keeper.to) {
+      const e = ease(keeper.d), f = keeper.from, t = keeper.to;
+      keeper.fx = f.fx + (t.fx - f.fx) * e; keeper.th = t.th * e;
+      keeper.h = t.h * Math.sin(Math.min(1, keeper.d) * Math.PI * .5) * (el > s.T + .35 ? Math.max(0, 1 - (el - s.T - .35) * 3) : 1);
+    }
+    const k = TYPES[s.type];
+    ball.ax += k.spinX * dt; ball.ay += k.spinY * dt;
+    if (s.phase === "fly") {
+      const t = el / s.T;
+      if (s.outcome === "save" && t >= .95) {
+        Object.assign(ball, path(s.type, s.tx, s.ty, .95));
+        s.vx = Math.sign(s.tx || 1) * (2.5 + Math.random() * 2); s.vy = 3.5; s.vz = -3.2; s.phase = "loose"; celebrate(s);
+      } else if (t >= 1) {
+        Object.assign(ball, path(s.type, s.tx, s.ty, 1)); afterLine(s);
+        if (s.outcome === "goal") { s.phase = "net"; s.nz = ball.z; }
+        else if (s.outcome === "post") { s.vz = -Math.abs(s.vz) * .45; s.vx = -Math.sign(s.tx || 1) * 2 + s.vx * .2; s.vy = Math.abs(s.vy) * .3 + 1.5; s.phase = "loose"; celebrate(s); }
+        else { s.phase = "away"; celebrate(s); }
+      } else Object.assign(ball, path(s.type, s.tx, s.ty, t));
+    } else if (s.phase === "net") {
+      const back = GZ + ND * .82;
+      ball.x += s.vx * dt * .5; ball.y += s.vy * dt * .5; ball.z += s.vz * dt;
+      if (ball.z >= back) { ball.z = back; s.phase = "drop"; s.vx *= .1; s.vy = Math.min(0, s.vy * .2); s.vz = -.6; celebrate(s); }
+    } else if (s.phase === "drop" || s.phase === "loose") {
+      s.vy -= 9.8 * dt; ball.x += s.vx * dt; ball.y += s.vy * dt; ball.z += s.vz * dt;
+      if (s.phase === "drop") { ball.z = Math.max(GZ + .25, Math.min(GZ + ND * .82, ball.z)); ball.x = clamp(ball.x, -GW / 2 + BR, GW / 2 - BR); }
+      if (ball.y < BR) { ball.y = BR; s.vy = Math.abs(s.vy) > 1 ? -s.vy * .45 : 0; s.vx *= .8; s.vz *= .8; }
+    } else if (s.phase === "away") { ball.x += s.vx * dt; ball.y += s.vy * dt; ball.z += s.vz * dt; s.vy -= 4 * dt; }
+    if (!s.end && s.phase !== "fly" && s.phase !== "net") s.end = now;
+    if (s.end && now - s.end > (s.outcome === "goal" ? 2 : 1.4)) {
+      shot = null; Object.assign(ball, { x: 0, y: BR, z: 0, pop: 0 }); trail = []; keeper.to = null;
+    }
+  };
+
+  /* ---------- drawing ---------- */
+  const line = pts => { ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); };
+  const netOff = (x, y) => {
+    let d = 0;
+    for (const r of ripples) { const a = now - r.t0, dd = (x - r.x) ** 2 + (y - r.y) ** 2; d += r.a * Math.exp(-dd / .45) * Math.exp(-a * 3) * Math.cos(a * 15); }
+    return d;
+  };
+  const drawBall = () => {
+    const [X, Y, s] = P(ball.x, ball.y, ball.z), r = BR * s * (shot ? 1 : ease(ball.pop));
+    if (r < .5) return;
+    const [sx, sy] = P(ball.x, 0, ball.z), hgt = clamp(1 - ball.y / 3, .15, 1);
+    ctx.fillStyle = `rgba(0,0,0,${.45 * hgt})`; ctx.beginPath(); ctx.ellipse(sx, sy, r * (1.1 + (1 - hgt)), r * .32, 0, 0, 7); ctx.fill();
+    const g = ctx.createRadialGradient(X - r * .35, Y - r * .4, r * .1, X, Y, r);
+    g.addColorStop(0, "#fff"); g.addColorStop(.7, "#e9e2f3"); g.addColorStop(1, "#8f84a3");
+    ctx.save(); ctx.beginPath(); ctx.arc(X, Y, r, 0, 7); ctx.fillStyle = g; ctx.fill(); ctx.clip();
+    const ca = Math.cos(ball.ax), sa = Math.sin(ball.ax), cb = Math.cos(ball.ay), sb = Math.sin(ball.ay);
+    const rot = ([x, y, z]) => { const y1 = y * ca - z * sa, z1 = y * sa + z * ca; return [x * cb + z1 * sb, y1, -x * sb + z1 * cb]; };
+    ctx.fillStyle = "#1a1026";
+    for (const v of ICO) {
+      const c = rot(v); if (c[2] < -.15) continue;
+      const u = Math.abs(c[0]) < .9 ? [0, -c[2], c[1]] : [c[2], 0, -c[0]], ul = Math.hypot(...u), U = u.map(q => q / ul);
+      const Wv = [c[1] * U[2] - c[2] * U[1], c[2] * U[0] - c[0] * U[2], c[0] * U[1] - c[1] * U[0]];
+      ctx.beginPath();
+      for (let k = 0; k < 5; k++) {
+        const a = k * 1.2566, p = [0, 1, 2].map(i => c[i] + .36 * (Math.cos(a) * U[i] + Math.sin(a) * Wv[i])), pl = Math.hypot(...p);
+        const px = X + p[0] / pl * r, py = Y - p[1] / pl * r; k ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+      }
+      ctx.closePath(); ctx.fill();
+    }
+    ctx.fillStyle = "rgba(255,255,255,.35)"; ctx.beginPath(); ctx.arc(X - r * .35, Y - r * .4, r * .25, 0, 7); ctx.fill();
+    ctx.restore();
+  };
+  const ICO = (() => { const t = (1 + Math.sqrt(5)) / 2, v = [[-1, t, 0], [1, t, 0], [-1, -t, 0], [1, -t, 0], [0, -1, t], [0, 1, t], [0, -1, -t], [0, 1, -t], [t, 0, -1], [t, 0, 1], [-t, 0, -1], [-t, 0, 1]]; return v.map(p => { const l = Math.hypot(...p); return p.map(q => q / l); }); })();
+
+  const drawKeeper = () => {
+    const [X, Y, s] = P(keeper.fx, keeper.h, KZ);
+    ctx.save(); ctx.translate(X, Y); ctx.scale(s, -s); ctx.rotate(-keeper.side * keeper.th);
+    const bob = shot ? 0 : Math.sin(now * 6) * .02, diving = keeper.th > .2;
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    // shadow handled by ground darkness; legs
+    ctx.strokeStyle = "#140c22"; ctx.lineWidth = .17;
+    line([[-.18, 0], [-.14, .5], [-.1, .95]]); line([[.18, 0], [.14, .5], [.1, .95]]);
+    ctx.fillStyle = "#140c22"; ctx.fillRect(-.24, .78, .48, .3);
+    // torso
+    const tg = ctx.createLinearGradient(0, 1.55, 0, .95); tg.addColorStop(0, C.white); tg.addColorStop(1, C.ice);
+    ctx.fillStyle = tg; ctx.beginPath(); ctx.moveTo(-.28, 1.55 + bob); ctx.lineTo(.28, 1.55 + bob); ctx.lineTo(.22, .98); ctx.lineTo(-.22, .98); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = C.accent; ctx.font = "italic 900 .28px Montserrat, Arial"; ctx.textAlign = "center"; ctx.save(); ctx.scale(1, -1); ctx.fillText("1", 0, -1.18 - bob); ctx.restore();
+    // arms + gloves
+    ctx.strokeStyle = C.ice; ctx.lineWidth = .12;
+    const hands = diving ? [[-.16, 2.02], [.16, 2.02]] : [[-.62, 1.15 + bob], [.62, 1.15 + bob]];
+    line([[-.25, 1.5 + bob], hands[0]]); line([[.25, 1.5 + bob], hands[1]]);
+    ctx.fillStyle = C.hi; hands.forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x, y, .085, 0, 7); ctx.fill(); });
+    // head
+    ctx.fillStyle = "#e0b896"; ctx.beginPath(); ctx.arc(0, 1.72 + bob, .13, 0, 7); ctx.fill();
+    ctx.fillStyle = "#120a1c"; ctx.beginPath(); ctx.arc(0, 1.76 + bob, .13, 0, Math.PI); ctx.fill();
+    ctx.restore();
+  };
+
+  const draw = () => {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const sk = shake > .3 ? [(Math.random() - .5) * shake, (Math.random() - .5) * shake] : [0, 0];
+    ctx.clearRect(0, 0, W, H); ctx.save(); ctx.translate(...sk);
+    // sky + stand
+    const sky = ctx.createLinearGradient(0, 0, 0, H); sky.addColorStop(0, "#0b0614"); sky.addColorStop(.55, "#1a0d33"); sky.addColorStop(1, "#05030a");
+    ctx.fillStyle = sky; ctx.fillRect(-20, -20, W + 40, H + 40);
+    [[.12, .02], [.88, .02]].forEach(([fx, fy]) => { const g = ctx.createRadialGradient(W * fx, H * fy, 0, W * fx, H * fy, W * .35); g.addColorStop(0, "rgba(220,200,255,.35)"); g.addColorStop(1, "rgba(124,58,237,0)"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); });
+    if (crowd) ctx.drawImage(crowd, 0, 0, W, H);
+    for (let i = flashes.length - 1; i >= 0; i--) { const f = flashes[i], a = now - f.t0; if (a > .25) { flashes.splice(i, 1); continue; } if (a < 0) continue; const [, ty] = P(0, 3.6, GZ + 3), [, by] = P(0, .6, GZ + 3); ctx.fillStyle = `rgba(255,255,255,${.9 * (1 - a / .25)})`; ctx.beginPath(); ctx.arc(f.x * W, ty + f.y * (by - ty), 2.2, 0, 7); ctx.fill(); }
+    if (!still && Math.random() < .04) flashes.push({ x: Math.random(), y: Math.random(), t0: now });
+    // ground with mown stripes
+    const [, gy0] = P(0, 0, 60);
+    ctx.fillStyle = "#0d1a12"; ctx.fillRect(-20, gy0, W + 40, H - gy0 + 20);
+    for (let z = -4.5, i = 0; z < 40; z += 1.6, i++) {
+      const [, y1] = P(0, 0, z), [, y2] = P(0, 0, z + 1.6);
+      ctx.fillStyle = i % 2 ? "rgba(40,90,60,.55)" : "rgba(28,66,44,.55)"; ctx.fillRect(-20, y2, W + 40, y1 - y2 + 1);
+    }
+    const vign = ctx.createLinearGradient(0, gy0, 0, H); vign.addColorStop(0, "rgba(26,13,51,.65)"); vign.addColorStop(1, "rgba(5,3,10,.15)"); ctx.fillStyle = vign; ctx.fillRect(-20, gy0, W + 40, H);
+    // LED board behind the goal
+    const bz = GZ + 3, [bl, bt] = P(-14, .5, bz), [br, bb] = P(14, 0, bz), lit = now - board < 2.2;
+    ctx.fillStyle = "#0a0614"; ctx.fillRect(bl, bt, br - bl, bb - bt);
+    ctx.save(); ctx.beginPath(); ctx.rect(bl, bt, br - bl, bb - bt); ctx.clip();
+    const fs = (bb - bt) * .62; ctx.font = `italic 900 ${fs}px Montserrat, Arial`; ctx.textBaseline = "middle";
+    ctx.fillStyle = lit ? (Math.floor((now - board) * 8) % 2 ? C.white : C.hi) : C.hi; ctx.shadowColor = C.accent; ctx.shadowBlur = lit ? 16 : 5; ctx.globalAlpha = lit ? 1 : .7;
+    const msg = lit ? "GOAL!   GOAL!   GOAL!   " : "RYAN #7  ·  VINSCHOOL CENTRAL PARK  ·  ", mw = ctx.measureText(msg).width, off = (now * (lit ? 260 : 60)) % mw;
+    for (let x = bl - off; x < br; x += mw) ctx.fillText(msg, x, (bt + bb) / 2);
+    ctx.restore();
+    // pitch lines
+    ctx.strokeStyle = "rgba(235,225,255,.5)"; ctx.lineWidth = 2;
+    line([P(-14, 0, GZ), P(14, 0, GZ)]);
+    line([P(-4.6, 0, GZ), P(-4.6, 0, GZ - 4.4), P(4.6, 0, GZ - 4.4), P(4.6, 0, GZ)]);
+    const [px, py, ps] = P(0, 0, 0); ctx.fillStyle = "rgba(235,225,255,.6)"; ctx.beginPath(); ctx.ellipse(px, py, .14 * ps, .05 * ps, 0, 0, 7); ctx.fill();
+    // net: back plane, then ball if it is inside, then roof and sides
+    const step = .25, bkZ = GZ + ND, topY = GH * .92;
+    ctx.strokeStyle = "rgba(235,225,255,.28)"; ctx.lineWidth = 1;
+    const bp = (x, y) => { const d = netOff(x, y); return P(x + d * x * .05, y, bkZ + d); };
+    for (let x = -GW / 2; x <= GW / 2 + .01; x += step) { const pts = []; for (let y = 0; y <= topY + .01; y += topY / 10) pts.push(bp(x, y)); line(pts); }
+    for (let y = 0; y <= topY + .01; y += step) { const pts = []; for (let x = -GW / 2; x <= GW / 2 + .01; x += GW / 16) pts.push(bp(x, y)); line(pts); }
+    if (ball.z > GZ) drawBall();
+    ctx.strokeStyle = "rgba(235,225,255,.22)";
+    for (let x = -GW / 2; x <= GW / 2 + .01; x += step) { const pts = []; for (let k = 0; k <= 6; k++) { const f = k / 6; pts.push(P(x, GH + (topY - GH) * f, GZ + ND * f + netOff(x, topY) * f * .6)); } line(pts); }
+    for (let f = 0; f <= 1.001; f += .2) line([P(-GW / 2, GH + (topY - GH) * f, GZ + ND * f), P(GW / 2, GH + (topY - GH) * f, GZ + ND * f)]);
+    [-1, 1].forEach(sd => {
+      const x = sd * GW / 2;
+      for (let y = 0; y <= GH + .01; y += step) line([P(x, y, GZ), P(x, Math.min(y, topY), bkZ)]);
+      for (let f = 0; f <= 1.001; f += .2) line([P(x, 0, GZ + ND * f), P(x, GH + (topY - GH) * f, GZ + ND * f)]);
+    });
+    // frame
+    ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(3, .12 * F / (GZ - CAMZ)); ctx.lineCap = "round"; ctx.shadowColor = C.hi; ctx.shadowBlur = 14;
+    line([P(-GW / 2, 0, GZ), P(-GW / 2, GH, GZ), P(GW / 2, GH, GZ), P(GW / 2, 0, GZ)]); ctx.shadowBlur = 0;
+    if (ball.z > KZ && ball.z <= GZ) drawBall();
+    drawKeeper();
+    // aim reticle + preview path
+    if (aim && !shot) {
+      ctx.fillStyle = "rgba(180,124,255,.55)";
+      for (let i = 1; i <= 22; i++) { const p = path(type, aim.x, aim.y, i / 22), [x, y, s] = P(p.x, p.y, p.z); ctx.beginPath(); ctx.arc(x, y, Math.max(1.4, s * .03), 0, 7); ctx.fill(); }
+      const [ax, ay, s] = P(aim.x, aim.y, GZ), r = .26 * s;
+      ctx.strokeStyle = C.hi; ctx.lineWidth = 2; ctx.shadowColor = C.hi; ctx.shadowBlur = 12;
+      ctx.beginPath(); ctx.arc(ax, ay, r, 0, 7); ctx.stroke();
+      line([[ax - r * 1.6, ay], [ax - r * .5, ay]]); line([[ax + r * .5, ay], [ax + r * 1.6, ay]]); line([[ax, ay - r * 1.6], [ax, ay - r * .5]]); line([[ax, ay + r * .5], [ax, ay + r * 1.6]]);
+      ctx.shadowBlur = 0;
+    }
+    // trail
+    if (shot && ball.z <= GZ + ND) {
+      const [x, y, s] = P(ball.x, ball.y, ball.z); trail.push([x, y, BR * s]); if (trail.length > (shot.type === "power" ? 16 : 11)) trail.shift();
+      for (let i = 1; i < trail.length; i++) { const f = i / trail.length; ctx.strokeStyle = shot.type === "power" ? `rgba(${200 + 55 * f | 0},${150 + 100 * f | 0},255,${f * .8})` : `rgba(180,124,255,${f * .55})`; ctx.lineWidth = trail[i][2] * 2 * f * (shot.type === "power" ? 1 : .7); ctx.lineCap = "round"; line([trail[i - 1], trail[i]]); }
+    }
+    if (ball.z <= KZ) drawBall();
+    // kick burst
+    for (let i = bursts.length - 1; i >= 0; i--) {
+      const b = bursts[i], a = now - b.t0; if (a > .45) { bursts.splice(i, 1); continue; }
+      const [x, y, s] = P(b.x, b.y, b.z), r = (BR * 1.1 + a * .7) * s;
+      ctx.strokeStyle = `rgba(234,220,255,${1 - a / .45})`; ctx.lineWidth = 3 * (1 - a / .45); ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.stroke();
+      for (let k = 0; k < 8; k++) { const an = k / 8 * 6.283 + .3, r1 = r * 1.15, r2 = r * (1.4 + a * 1.2); line([[x + Math.cos(an) * r1, y + Math.sin(an) * r1 * .6], [x + Math.cos(an) * r2, y + Math.sin(an) * r2 * .6]]); }
+    }
+    // confetti
+    for (let i = bits.length - 1; i >= 0; i--) {
+      const b = bits[i], a = now - b.t0; if (a > 3) { bits.splice(i, 1); continue; }
+      ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r); ctx.fillStyle = b.c; ctx.globalAlpha = Math.min(1, 3 - a); ctx.fillRect(-b.w / 2, -b.w / 4, b.w, b.w / 2); ctx.restore();
+    }
+    ctx.restore();
+  };
+
+  const frame = t => {
+    const dt = Math.min(.05, (t - (last || t)) / 1000); last = t; now = t / 1000;
+    step(dt);
+    for (const b of bits) { b.vy += 900 * dt; b.vx *= .99; b.x += b.vx * dt; b.y += b.vy * dt; b.r += b.vr * dt; }
+    ripples = ripples.filter(r => now - r.t0 < 2.5); shake *= .88;
+    draw();
+  };
+  const loop = () => {
+    if (running) return; running = true;
+    const tick = t => { frame(t); if (visible || shot || bits.length) requestAnimationFrame(tick); else { running = false; last = 0; } };
+    requestAnimationFrame(tick);
+  };
+
+  const toAim = e => {
+    const r = box.getBoundingClientRect(), s = F / (GZ - CAMZ);
+    return { x: clamp((e.clientX - r.left - W / 2) / s, -6.5, 6.5), y: clamp(CAMH - (e.clientY - r.top - HY) / s, .12, 4.2) };
+  };
+  box.addEventListener("pointermove", e => { if (e.pointerType === "mouse") aim = toAim(e); });
+  box.addEventListener("pointerleave", () => aim = null);
+  box.addEventListener("pointerdown", e => { const a = toAim(e); if (e.pointerType !== "mouse") aim = null; demoDone = true; shoot(a.x, a.y); });
+  box.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); demoDone = true; shoot((Math.random() - .5) * 4.4, .3 + Math.random() * 1.7); } });
+  document.querySelectorAll(".shot-type").forEach(b => b.addEventListener("click", () => {
+    type = b.dataset.type; document.querySelectorAll(".shot-type").forEach(o => o.setAttribute("aria-pressed", o === b));
+    if (!running) frame(performance.now());
+  }));
+  addEventListener("resize", resize);
+  if ("IntersectionObserver" in window) new IntersectionObserver(([en]) => {
+    visible = en.isIntersecting; if (visible) loop();
+    if (visible && !demoDone) { demoDone = true; setTimeout(() => { if (!shot && !shots) shoot(1.85, 1.65, true); }, 900); }
+  }, { threshold: .4 }).observe(box);
+  else { visible = true; loop(); }
+  resize();
+})();
 
 /* ---------- Motion (GSAP). Without it, or with reduced motion, the page is simply static. ---------- */
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
