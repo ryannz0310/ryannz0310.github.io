@@ -292,15 +292,17 @@ h1, h2, h3, p { margin: 0; }
 .scoreline { display: flex; align-items: baseline; gap: 18px; font: italic 900 14px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
 .scoreline b { font-size: clamp(34px, 4vw, 52px); color: var(--white); letter-spacing: 0; margin-right: 6px; }
 .scoreline .g b { color: var(--accent-hi); text-shadow: 0 0 18px rgba(var(--accent-hi-rgb), .6); }
-.pitch { position: relative; height: clamp(380px, 62vh, 620px); overflow: hidden; background: #07040d; box-shadow: 12px 12px 0 rgba(var(--accent-rgb), .3); cursor: crosshair; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.pitch { position: relative; height: clamp(420px, 74vh, 760px); overflow: hidden; background: #07040d; box-shadow: 12px 12px 0 rgba(var(--accent-rgb), .3); cursor: crosshair; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .pitch canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.pitch::before { content: "Floodlights on…"; position: absolute; inset: 0; display: grid; place-items: center; z-index: 1; font: italic 900 14px/1 var(--f-display); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); background: radial-gradient(60% 50% at 50% 40%, rgba(var(--accent-rgb), .25), transparent 70%), #07040d; opacity: 0; pointer-events: none; transition: opacity .5s; }
+.pitch.loading::before { opacity: 1; }
 .pitch-call { position: absolute; left: 0; right: 0; top: 30%; text-align: center; pointer-events: none; font: italic 900 clamp(64px, 13vw, 170px)/.9 var(--f-display); text-transform: uppercase; letter-spacing: -.02em; color: #fff; opacity: 0; text-shadow: 0 0 6px rgba(255, 255, 255, .8), 0 0 30px rgba(var(--accent-hi-rgb), .95), 0 0 70px rgba(var(--accent-rgb), .9); }
 .pitch-call.miss { color: var(--ice); text-shadow: 0 0 24px rgba(0, 0, 0, .8); font-size: clamp(44px, 8vw, 110px); }
 .pitch-call.show { animation: call 1.5s cubic-bezier(.2, .8, .2, 1) forwards; }
 @keyframes call { 0% { opacity: 0; transform: scale(2.2) skewX(-12deg); filter: blur(10px); } 14% { opacity: 1; transform: scale(.94) skewX(-12deg); filter: none; } 22% { transform: scale(1.04) skewX(-12deg); } 75% { opacity: 1; transform: scale(1) skewX(-12deg); } 100% { opacity: 0; transform: scale(1.1) skewX(-12deg) translateY(-20px); } }
 .pitch-hint { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); pointer-events: none; font: 700 11px/1 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: rgba(var(--ice-rgb), .7); white-space: nowrap; transition: opacity .4s; }
 .pitch.played .pitch-hint { opacity: 0; }
-@media (max-width: 760px) { .pitch { height: auto; aspect-ratio: 4 / 5; } .shot-type { padding: 10px 13px; } }
+@media (max-width: 760px) { .pitch { height: auto; aspect-ratio: 3 / 4; } .shot-type { padding: 10px 13px; } }
 
 /* Trophy cabinet */
 .cabinet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 20px; perspective: 1000px; }
@@ -412,6 +414,7 @@ dialog.lb p { font: 700 13px/1.4 var(--f-body); letter-spacing: .08em; text-tran
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script type="importmap">{ "imports": { "three": "./vendor/three/three.module.min.js", "three/addons/": "./vendor/three/addons/" } }</script>
 </head>
 <body>
 
@@ -802,8 +805,8 @@ document.querySelectorAll(".trophy").forEach(card => {
   addEventListener("resize", draw); draw();
 })();
 
-/* Take the shot: a small penalty game drawn on canvas, in a simple 3D perspective (metres) */
-(() => {
+/* Take the shot, 2D fallback: used only when WebGL or the 3D module is unavailable */
+function startShoot2D() {
   const box = $("#pitch"), cv = $("#pitchCanvas"), ctx = cv.getContext("2d"), call = $("#pitchCall");
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const GW = 5, GH = 2.2, GZ = 8, ND = 1.3, CAMZ = -5, CAMH = 1.35, BR = .17, KZ = GZ - .4;
@@ -1115,7 +1118,7 @@ document.querySelectorAll(".trophy").forEach(card => {
   }, { threshold: .4 }).observe(box);
   else { visible = true; loop(); }
   resize();
-})();
+}
 
 /* ---------- Motion (GSAP). Without it, or with reduced motion, the page is simply static. ---------- */
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1197,5 +1200,21 @@ else {
   gsap.from(".final .big", { scale: .85, opacity: 0, duration: 1.2, ease: "power4.out", scrollTrigger: { trigger: ".final", start: "top 75%" } });
 }
 </script>
+<script type="module">
+/* Load the 3D stadium only when the penalty section comes near; fall back to the 2D game if anything fails */
+const box = document.getElementById("pitch");
+const fallback = () => { const c = box.querySelector("canvas"), fresh = c.cloneNode(false); c.replaceWith(fresh); box.classList.remove("loading"); startShoot2D(); };
+const webgl = (() => { try { const c = document.createElement("canvas"); return !!c.getContext("webgl2"); } catch { return false; } })();
+let started = false;
+const go = async () => {
+  if (started) return; started = true;
+  if (!webgl) return fallback();
+  box.classList.add("loading");
+  try { const m = await import("./js/shoot3d.js"); m.startShoot3D(box); box.classList.remove("loading"); }
+  catch (e) { console.warn("3D penalty unavailable, using 2D", e); fallback(); }
+};
+new IntersectionObserver((en, io) => { if (en[0].isIntersecting) { io.disconnect(); go(); } }, { rootMargin: "900px 0px" }).observe(box);
+</script>
+<script nomodule>startShoot2D();</script>
 </body>
 </html>
